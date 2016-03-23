@@ -1,0 +1,7 @@
+{
+  "path": {
+    "build": "build",
+    "dist": "dist"
+  },
+  "PORT": "3000"
+}

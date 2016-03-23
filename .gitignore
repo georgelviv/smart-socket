@@ -1,0 +1,6 @@
+node_modules/
+app/front/vendor/
+build/
+dist/
+.DS_Store
+npm-debug.log

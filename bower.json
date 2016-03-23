@@ -1,0 +1,19 @@
+{
+  "name": "smart-socket",
+  "description": "Smart-socket is a project used to simplify your life with smart solutions in your home.",
+  "main": "boot.js",
+  "authors": [
+    "georgelviv"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/georgelviv/smart-socket",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/front/vendor",
+    "test",
+    "tests"
+  ]
+}

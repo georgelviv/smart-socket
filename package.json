@@ -1,0 +1,25 @@
+{
+  "name": "smart-socket",
+  "version": "0.0.5",
+  "description": "Smart-socket is a project used to simplify your life with smart solutions in your home.",
+  "main": "boot.js",
+  "scripts": {
+    "start": "node app/back",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/georgelviv/smart-socket.git"
+  },
+  "author": "georgelviv",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/georgelviv/smart-socket/issues"
+  },
+  "homepage": "https://github.com/georgelviv/smart-socket#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "nconf": "^0.8.4",
+    "socket.io": "^1.4.5"
+  }
+}
