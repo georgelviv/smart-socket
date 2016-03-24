@@ -1,4 +1,4 @@
-var socketio = require('socket.io');
+let socketio = require('socket.io');
 serverModule.io = socketio(serverModule.server);
 io.on('connection', function (socket) {
   socket.emit('news', { hello: 'world' });

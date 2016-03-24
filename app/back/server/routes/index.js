@@ -1,5 +1,7 @@
-var serverModule = require('../index');
-var isInited = false;
+'use strict';
+
+let serverModule = require('../index');
+let isInited = false;
 
 module.exports.init = init;
 
@@ -10,11 +12,9 @@ function init() {
   }
   isInited = true;
 
-  var app = serverModule.app;
+  let app = serverModule.app;
 
-  app.get('*', handleNotFound);
-}
-
-function handleNotFound(req, res) {
-  res.redirect('/');
+  app.get('*', (req, res) => {
+    res.redirect('/');
+  });
 }

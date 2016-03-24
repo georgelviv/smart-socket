@@ -1,6 +1,7 @@
-var nconf = require('nconf');
+'use strict';
 
-var isInited = false;
+let nconf = require('nconf');
+let isInited = false;
 
 module.exports.init = init;
 

@@ -1,12 +1,12 @@
-var config = require('./config');
-var server = require('./server');
+'use strict';
+
+let config = require('./config');
+let server = require('./server');
 
 config.init();
 server.init();
 
-process.on('SIGINT', onExit);
-
-function onExit () {
+process.on('SIGINT', () => {
   console.log('Bye bye');
   process.exit();
-}
+});

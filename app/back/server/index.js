@@ -1,8 +1,10 @@
-var express = require('express');
-var nconf = require('nconf');
+'use strict';
 
-var isInited = false;
-var serverModule = {
+let express = require('express');
+let nconf = require('nconf');
+
+let isInited = false;
+let serverModule = {
   init: init
 };
 
@@ -18,15 +20,13 @@ function init() {
   serverModule.app = express();
   serverModule.server = require('http').Server(serverModule.app);
 
-  var app = serverModule.app;
-  var server = serverModule.server;
+  let app = serverModule.app;
+  let server = serverModule.server;
 
   app.use(express.static(nconf.get('frontPath') + '/'));
 
-  routes = require('./routes').init();
-  server = app.listen(nconf.get('PORT'), onListen);
-
-  function onListen() {
+  let routes = require('./routes').init();
+  server = app.listen(nconf.get('PORT'), () => {
     console.log('Listen on port:' + server.address().port);
-  }
+  });
 }
