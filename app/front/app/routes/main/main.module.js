@@ -3,7 +3,8 @@
 
   angular
     .module('app.main', [
-      'ngRoute'
+      'ngRoute',
+      'utils.socket'
     ]);
 
 })();

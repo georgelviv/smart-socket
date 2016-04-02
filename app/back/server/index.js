@@ -20,13 +20,13 @@ function init() {
   serverModule.app = express();
   serverModule.server = require('http').Server(serverModule.app);
 
-  let app = serverModule.app;
-  let server = serverModule.server;
-
-  app.use(express.static(nconf.get('frontPath') + '/'));
+  serverModule.app.use(express.static(nconf.get('frontPath') + '/'));
 
   let routes = require('./routes').init();
-  server = app.listen(nconf.get('PORT'), () => {
-    console.log('Listen on port:' + server.address().port);
-  });
+  serverModule.server = serverModule.app.listen(nconf.get('PORT'), onListen);
+
+  function onListen() {
+    let socket = require('./socket').init();
+    console.log('Listen on port:' + serverModule.server.address().port);
+  }
 }
