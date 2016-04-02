@@ -2,6 +2,7 @@
 
 let express = require('express');
 let nconf = require('nconf');
+let helmet = require('helmet');
 
 let isInited = false;
 let serverModule = {
@@ -20,10 +21,13 @@ function init() {
   serverModule.app = express();
   serverModule.server = require('http').Server(serverModule.app);
 
-  serverModule.app.use(express.static(nconf.get('frontPath') + '/'));
+  let app = serverModule.app;
+
+  app.use(helmet());
+  app.use(express.static(nconf.get('frontPath') + '/'));
 
   let routes = require('./routes').init();
-  serverModule.server = serverModule.app.listen(nconf.get('PORT'), onListen);
+  serverModule.server = app.listen(nconf.get('PORT'), onListen);
 
   function onListen() {
     let socket = require('./socket').init();

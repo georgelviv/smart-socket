@@ -4,5 +4,6 @@
     "prod": "dist",
     "front": "app/front"
   },
-  "PORT": "3000"
+  "PORT": "3000",
+  "espUrl": "http://192.168.1.102:3000"
 }

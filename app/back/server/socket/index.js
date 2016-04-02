@@ -2,6 +2,7 @@
 
 let socketio = require('socket.io');
 let serverModule = require('../index');
+let espModule = require('../esp');
 
 let isInited = false;
 let socketModule = {
@@ -23,7 +24,10 @@ function init() {
 
   function onConnection(socket) {
     socket.on('app.btn', function (data) {
-      socket.emit('app.btnCb');
+      espModule.blink(onBlink);
+      function onBlink() {
+        socket.emit('app.btnCb');
+      }
     });
   }
 }
