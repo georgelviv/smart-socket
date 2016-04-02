@@ -3,7 +3,7 @@ var concat = require('gulp-concat');
 
 var path = require('../config').path;
 var filesArr = [
-
+	'./node_modules/normalize.css/normalize.css'
 ];
 
 module.exports = vendorCssTask;

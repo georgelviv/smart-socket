@@ -10,6 +10,7 @@ var srcFiles = [
   path.build + '/main.css',
   path.build + '/vendor.js',
   path.build + '/templates.js',
+  path.build + '/config.js',
   path.build + '/app.js'
 ];
 

@@ -12,7 +12,8 @@ module.exports.srcFiles = srcFiles;
 function templateTask () {
   return gulp.src(srcFiles)
     .pipe(templateCache({
-      standalone: true
+      standalone: true,
+      module: 'app.templates'
     }))
     .pipe(gulp.dest(path.build))
     .pipe(livereload());

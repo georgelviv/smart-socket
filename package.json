@@ -18,8 +18,15 @@
   },
   "homepage": "https://github.com/georgelviv/smart-socket#readme",
   "dependencies": {
+    "angular": "^1.5.3",
+    "angular-animate": "^1.5.3",
+    "angular-aria": "^1.5.3",
+    "angular-messages": "^1.5.3",
+    "angular-route": "^1.5.3",
     "express": "^4.13.4",
+    "jquery": "^2.2.2",
     "nconf": "^0.8.4",
+    "normalize.css": "^4.0.0",
     "socket.io": "^1.4.5"
   },
   "devDependencies": {
