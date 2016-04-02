@@ -6,16 +6,16 @@ var nconf = require('nconf');
 nconf.env().argv();
 
 gulp.task('prod', function () {
-  return runSequence(['static', 'css', 'vendor-css', 'js', 'vendor-js', 'template'],
+  return runSequence(['static', 'css', 'vendor-css', 'js', 'vendor-js', 'template', 'config'],
               'inject', ['css-prod', 'js-prod'], 'static-prod', 'inject-prod');
 });
 
 gulp.task('build', function () {
-    return runSequence(['static', 'css', 'vendor-css', 'js', 'vendor-js', 'template'], 'inject');
+    return runSequence(['static', 'css', 'vendor-css', 'js', 'vendor-js', 'template', 'config'], 'inject');
 });
 
 gulp.task('develop', function () {
-    return runSequence(['static', 'css', 'vendor-css', 'js', 'vendor-js', 'template'], 'inject', 'watch');
+    return runSequence(['static', 'css', 'vendor-css', 'js', 'vendor-js', 'template', 'config'], 'inject', 'watch');
 });
 
 gulp.task('default', require('./task/default.task'));
@@ -32,3 +32,4 @@ gulp.task('template', require('./task/template.task'));
 gulp.task('inject', require('./task/inject.task'));
 gulp.task('inject-prod', require('./task/inject.task').prod);
 gulp.task('watch', require('./task/watch.task'));
+gulp.task('config', require('./task/config.task'));
