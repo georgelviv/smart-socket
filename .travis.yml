@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "4.1"
+  - "4.0"
+env:
+  - NODE_ENV=travis
+before_script:
+  - npm install -g gulp
+script: gulp build
