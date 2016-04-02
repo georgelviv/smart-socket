@@ -1,7 +1,8 @@
 {
   "path": {
     "build": "build",
-    "dist": "dist"
+    "prod": "dist",
+    "front": "app/front"
   },
   "PORT": "3000"
 }

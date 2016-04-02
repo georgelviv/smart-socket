@@ -26,7 +26,7 @@ function init() {
   if (nconf.get('NODE_ENV') === 'development') {
     nconf.set('frontPath', nconf.get('path').build);
   } else {
-    nconf.set('frontPath', nconf.get('path').dist);
+    nconf.set('frontPath', nconf.get('path').prod);
   }
 
   console.log('Mode: ' + nconf.get('NODE_ENV'));
