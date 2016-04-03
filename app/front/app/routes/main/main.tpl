@@ -1,7 +1,9 @@
-<h2>
-  hello world
-</h2>
-<button ng-click="vm.btnClick()">
-  <span ng-hide='vm.isLighted'>On LED</span>
-  <span ng-show='vm.isLighted'>Off LED</span>
-</button>
+<section class="main" layout="column" ng-cloak>
+
+  <div ng-include="'routes/main/partials/header.tpl'"></div>
+
+  <md-content flex layout-padding>
+    <gpio-list></gpio-list>
+  </md-content>
+
+</section>

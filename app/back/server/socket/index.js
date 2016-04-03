@@ -23,11 +23,20 @@ function init() {
   socketModule.io.on('connection', onConnection);
 
   function onConnection(socket) {
-    socket.on('app.btn', function (data) {
-      espModule.blink(onBlink);
-      function onBlink() {
-        socket.emit('app.btnCb');
-      }
+    socket.on('app.gpio', function (gpio) {
+        if (gpio.method === 'get') {
+          espModule.get(gpio.id, onResult);
+        }
+        if (gpio.method === 'set') {
+          espModule.get(gpio.id, gpio.value, onResult);
+        }
+
+        function onResult(data) {
+          socket.emit('app.gpio', {
+            id: gpio.id,
+            status: data
+          });
+        }
     });
   }
 }

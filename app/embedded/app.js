@@ -17,8 +17,8 @@ Wifi.changed(function () {
 
 function createServer() {
   app.server = Http.createServer(function(req, res) {
+    console.log(req);
     if (req.url === '/blink') {
-      changePinLevel(2);
       res.end('changed');
     } else {
       res.end('works');

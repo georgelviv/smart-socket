@@ -3,7 +3,8 @@ var concat = require('gulp-concat');
 
 var path = require('../config').path;
 var filesArr = [
-	'./node_modules/normalize.css/normalize.css'
+	'./node_modules/normalize.css/normalize.css',
+	'./node_modules/angular-material/angular-material.css',
 ];
 
 module.exports = vendorCssTask;

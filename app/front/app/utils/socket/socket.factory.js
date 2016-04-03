@@ -20,8 +20,7 @@
           console.warn('SocketAPI: to emit, pass event name');
           return;
         }
-        var dataToEmit = data || null;
-        socket.emit(event, dataToEmit);
+        socket.emit(event, data);
       }
 
       function on(event, cb) {

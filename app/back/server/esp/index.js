@@ -3,12 +3,19 @@ let request = require('request');
 let config = require('../../../../config');
 
 let espModule = {
-  blink: blink
+  set: set,
+  get: get
 };
 
 module.exports = espModule;
 
-function blink(cb) {
+function get(gpioId, cb) {
+  if (cb) {
+    cb(true);
+  }
+}
+
+function set(gpioId, value, cb) {
   request(config.espUrl + '/blink', onResponse);
 
   function onResponse(error, response, body) {

@@ -4,7 +4,8 @@
   angular
     .module('app.main', [
       'ngRoute',
-      'utils.socket'
+      'utils.socket',
+      'app.gpio-list'
     ]);
 
 })();
