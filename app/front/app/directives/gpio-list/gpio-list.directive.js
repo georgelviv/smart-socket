@@ -27,7 +27,7 @@
 
 
       function changeStatus(gpio) {
-        console.log(gpio);
+        setGPIOStatus(gpio, gpio.status);
       }
 
       function init() {
@@ -53,6 +53,14 @@
         socketApi.emit('app.gpio', {
           id: gpio.id,
           method: 'get'
+        });
+      }
+
+      function setGPIOStatus(gpio, status) {
+        socketApi.emit('app.gpio', {
+          id: gpio.id,
+          method: 'set',
+          value: status
         });
       }
 

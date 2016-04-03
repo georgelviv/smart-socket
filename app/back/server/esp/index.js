@@ -10,13 +10,11 @@ let espModule = {
 module.exports = espModule;
 
 function get(gpioId, cb) {
-  if (cb) {
-    cb(true);
+  if (gpioId === undefined) {
+    console.log('To get gpio, pass gpioID');
+    return;
   }
-}
-
-function set(gpioId, value, cb) {
-  request(config.espUrl + '/blink', onResponse);
+  request(config.espUrl + '/gpio/' + gpioId + '?method=get', onResponse);
 
   function onResponse(error, response, body) {
     if (error) {
@@ -24,7 +22,25 @@ function set(gpioId, value, cb) {
       return;
     }
     if (cb) {
-      cb();
+      cb(body);
+    }
+  }
+}
+
+function set(gpioId, value, cb) {
+  if (gpioId === undefined || value === undefined) {
+    console.log('To set gpio, pass gpioID and value');
+    return;
+  }
+  request(config.espUrl + '/gpio/' + gpioId + '?method=set&value=' + value, onResponse);
+
+  function onResponse(error, response, body) {
+    if (error) {
+      console.log('Error on esp request', error);
+      return;
+    }
+    if (cb) {
+      cb(body);
     }
   }
 }

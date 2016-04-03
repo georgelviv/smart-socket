@@ -28,13 +28,13 @@ function init() {
           espModule.get(gpio.id, onResult);
         }
         if (gpio.method === 'set') {
-          espModule.get(gpio.id, gpio.value, onResult);
+          espModule.set(gpio.id, gpio.value, onResult);
         }
 
         function onResult(data) {
           socket.emit('app.gpio', {
             id: gpio.id,
-            status: data
+            status: !!(Number(data))
           });
         }
     });
