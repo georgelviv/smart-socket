@@ -1,0 +1,33 @@
+.spinner {
+  &__overlay {
+    position: fixed;
+    top: 64px;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    opacity: 0.6;
+    z-index: 9;
+  }
+  &__circular {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index 10;
+  }
+}
+
+@media only screen and (max-width: 959px) and (orientation: portrait) {
+  .spinner {
+    &__overlay {
+      top: 56px;
+    }
+  }
+}
+@media only screen and (max-width: 959px) and (orientation: landscape) {
+  .spinner {
+    &__overlay {
+      top: 48px;
+    }
+  }
+}

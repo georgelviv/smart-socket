@@ -3,7 +3,8 @@
 
   angular
     .module('app.gpio-list', [
-      'utils.socket'
+      'utils.socket',
+      'utils.spinner'
     ]);
 
 })();
