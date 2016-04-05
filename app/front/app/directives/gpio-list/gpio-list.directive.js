@@ -5,7 +5,7 @@
     .module('app.gpio-list')
     .directive('gpioList', gpioListDirective);
 
-  function gpioListDirective($q, $timeout, $injector, GPIO_ARRAY, socketApi, spinnerApi) {
+  function gpioListDirective($q, $timeout, $injector, GPIO_ARRAY, socketApi, spinnerApi, loggerApi) {
     var directive = {
       link: link,
       controllerAs: 'vm',
@@ -30,12 +30,18 @@
       }
 
       function init() {
-        $timeout(spinnerApi.show);
-        angular.copy(GPIO_ARRAY, scope.gpioArray);
-        scope.gpioArray.forEach(function (item) {
-          item.isInit = false;
-          getGPIOStatus(item);
-        });
+        loggerApi.error({
+          code: 'ETIMEDOUT',
+          errno: 'ETIMEDOUT',
+          syscall: 'connect',
+           address: '192.168.1.102',
+           port: 3000});
+        // $timeout(spinnerApi.show);
+        // angular.copy(GPIO_ARRAY, scope.gpioArray);
+        // scope.gpioArray.forEach(function (item) {
+        //   item.isInit = false;
+        //   getGPIOStatus(item);
+        // });
       }
 
       function onGPIOMsg(gpio) {
@@ -43,10 +49,14 @@
           var current = (scope.gpioArray.filter(function (item) {
             return item.id === gpio.id;
           })[0]);
+          checkInit(current);
+          if (gpio.error) {
+            console.log(gpio.error);
+            loggerApi.error(gpio.error);
+          }
           if (current.status !== gpio.status) {
             current.status = gpio.status;
           }
-          checkInit(current);
         });
       }
 
