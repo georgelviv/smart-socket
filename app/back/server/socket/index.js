@@ -2,7 +2,7 @@
 
 let socketio = require('socket.io');
 let serverModule = require('../index');
-let espModule = require('../esp');
+let gpioSocketModule = require('./gpio');
 
 let isInited = false;
 let socketModule = {
@@ -23,20 +23,6 @@ function init() {
   socketModule.io.on('connection', onConnection);
 
   function onConnection(socket) {
-    socket.on('app.gpio', function (gpio) {
-        if (gpio.method === 'get') {
-          espModule.get(gpio.id, onResult);
-        }
-        if (gpio.method === 'set') {
-          espModule.set(gpio.id, gpio.value, onResult);
-        }
-
-        function onResult(data) {
-          socket.emit('app.gpio', {
-            id: gpio.id,
-            status: !!(Number(data))
-          });
-        }
-    });
+    gpioSocketModule.init(socket);
   }
 }

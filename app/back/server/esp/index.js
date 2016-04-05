@@ -14,17 +14,9 @@ function get(gpioId, cb) {
     console.log('To get gpio, pass gpioID');
     return;
   }
-  request(config.espUrl + '/gpio/' + gpioId + '?method=get', onResponse);
+  request(config.espUrl + '/gpio/' + gpioId + '?method=get', onResponse.bind(this, cb));
 
-  function onResponse(error, response, body) {
-    if (error) {
-      console.log('Error on esp request', error);
-      return;
-    }
-    if (cb) {
-      cb(body);
-    }
-  }
+
 }
 
 function set(gpioId, value, cb) {
@@ -32,15 +24,15 @@ function set(gpioId, value, cb) {
     console.log('To set gpio, pass gpioID and value');
     return;
   }
-  request(config.espUrl + '/gpio/' + gpioId + '?method=set&value=' + value, onResponse);
+  request(config.espUrl + '/gpio/' + gpioId + '?method=set&value=' + value, onResponse.bind(this, cb));
+}
 
-  function onResponse(error, response, body) {
-    if (error) {
-      console.log('Error on esp request', error);
-      return;
-    }
-    if (cb) {
-      cb(body);
-    }
+function onResponse(cb, error, response, body) {
+  if (error) {
+    cb(error);
+    return;
+  }
+  if (cb) {
+    cb(null, body);
   }
 }
