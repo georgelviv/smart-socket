@@ -5,9 +5,9 @@
     .module('app.gpio-list')
     .directive('gpioList', gpioListDirective);
 
-  function gpioListDirective() {
+  function gpioListDirective($q, $timeout, $injector, GPIO_ARRAY, socketApi, spinnerApi) {
     var directive = {
-      controller: gpioListCtrl,
+      link: link,
       controllerAs: 'vm',
       templateUrl: 'directives/gpio-list/gpio-list.tpl',
       restrict: 'E',
@@ -17,10 +17,9 @@
 
     return directive;
 
-    function gpioListCtrl($q, $scope, $timeout, GPIO_ARRAY, socketApi, spinnerApi) {
-      var vm = this;
-      vm.gpioArray = [];
-      vm.changeStatus = changeStatus;
+    function link(scope) {
+      scope.gpioArray = [];
+      scope.changeStatus = changeStatus;
 
       init();
       socketApi.on('app.gpio', onGPIOMsg);
@@ -32,16 +31,16 @@
 
       function init() {
         $timeout(spinnerApi.show);
-        angular.copy(GPIO_ARRAY, vm.gpioArray);
-        vm.gpioArray.forEach(function (item) {
+        angular.copy(GPIO_ARRAY, scope.gpioArray);
+        scope.gpioArray.forEach(function (item) {
           item.isInit = false;
           getGPIOStatus(item);
         });
       }
 
       function onGPIOMsg(gpio) {
-        $scope.$apply(function () {
-          var current = (vm.gpioArray.filter(function (item) {
+        scope.$apply(function () {
+          var current = (scope.gpioArray.filter(function (item) {
             return item.id === gpio.id;
           })[0]);
           if (current.status !== gpio.status) {
@@ -53,7 +52,7 @@
 
       function checkInit(current) {
         current.isInit = true;
-        var notInited = (vm.gpioArray.filter(function (item) {
+        var notInited = (scope.gpioArray.filter(function (item) {
           return item.isInit === false;
         })[0]);
         if (!notInited) {
