@@ -5,7 +5,7 @@
   "main": "boot.js",
   "scripts": {
     "start": "node app/back",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "gulp prod"
   },
   "repository": {
     "type": "git",
