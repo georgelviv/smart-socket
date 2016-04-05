@@ -17,7 +17,7 @@ var srcFiles = [
 ];
 var buildFile = [
   path.build + '/vendor.js',
-  path.build + '/template.js',
+  path.build + '/templates.js',
   path.build + '/config.js',
   path.build + '/app.js'
 ];
