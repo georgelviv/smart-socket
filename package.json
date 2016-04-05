@@ -4,7 +4,8 @@
   "description": "Smart-socket is a project used to simplify your life with smart solutions in your home.",
   "main": "boot.js",
   "scripts": {
-    "start": "node app/back"
+    "start": "node app/back",
+    "postinstall": "gulp prod"
   },
   "repository": {
     "type": "git",
