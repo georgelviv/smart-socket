@@ -30,18 +30,12 @@
       }
 
       function init() {
-        loggerApi.error({
-          code: 'ETIMEDOUT',
-          errno: 'ETIMEDOUT',
-          syscall: 'connect',
-           address: '192.168.1.102',
-           port: 3000});
-        // $timeout(spinnerApi.show);
-        // angular.copy(GPIO_ARRAY, scope.gpioArray);
-        // scope.gpioArray.forEach(function (item) {
-        //   item.isInit = false;
-        //   getGPIOStatus(item);
-        // });
+        $timeout(spinnerApi.show);
+        angular.copy(GPIO_ARRAY, scope.gpioArray);
+        scope.gpioArray.forEach(function (item) {
+          item.isInit = false;
+          getGPIOStatus(item);
+        });
       }
 
       function onGPIOMsg(gpio) {

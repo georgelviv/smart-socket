@@ -14,6 +14,7 @@
       return service;
 
       function show(text, type) {
+
         var toast = $mdToast.simple()
           .textContent(text)
           .action('UNDO')

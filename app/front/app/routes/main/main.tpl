@@ -9,10 +9,12 @@
   </md-toolbar>
 
 
-  <md-content flex>
-    <div class="main__content-wrapper" layout="row" layout-align="center center">
-      <div class="main__content" flex-gt-sm="90" flex-gt-md="80" flex="90">
-        <gpio-list></gpio-list>
+  <md-content flex layout="column">
+    <div class="main__content-wrapper" flex="100">
+      <div layout="row" layout-align="center center">
+        <div class="main__content" flex-gt-sm="90" flex-gt-md="80" flex="90">
+          <gpio-list></gpio-list>
+        </div>
       </div>
     </div>
     <spinner></spinner>
