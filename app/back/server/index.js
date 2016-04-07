@@ -3,6 +3,7 @@
 let express = require('express');
 let nconf = require('nconf');
 let helmet = require('helmet');
+let compression = require('compression');
 
 let isInited = false;
 let serverModule = {
@@ -24,6 +25,7 @@ function init() {
   let app = serverModule.app;
 
   app.use(helmet());
+  app.use(compression());
   app.use(express.static(nconf.get('frontPath') + '/'));
 
   let routes = require('./routes').init();
