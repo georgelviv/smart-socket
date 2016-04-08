@@ -17,6 +17,7 @@
 
       function show(text) {
         checkTime(text);
+
         var toast = $mdToast.simple()
           .textContent(text)
           .action('UNDO')
