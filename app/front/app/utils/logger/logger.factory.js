@@ -16,8 +16,9 @@
       return service;
 
       function show(text) {
-        checkTime(text);
-
+        if (!checkTime(text)) {
+          return;
+        }
         var toast = $mdToast.simple()
           .textContent(text)
           .action('UNDO')
@@ -28,14 +29,15 @@
       }
 
       function checkTime(text) {
-        if (timer.text) {
-          if ((new Date().getTime() - timer.text) > timeout) {
-            console.log(1);
+        if (timer[text]) {
+          if ((new Date().getTime() - timer[text]) > timeout) {
+            delete timer[text];
+            return true;
           } else {
-            console.log(2);
+            return false;
           }
         } else {
-          timer.text = new Date().getTime();
+          timer[text] = new Date().getTime();
           return true;
         }
       }

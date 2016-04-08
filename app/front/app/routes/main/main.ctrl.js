@@ -3,9 +3,9 @@
 
   angular
     .module('app.main')
-    .controller('MainCtrl', MainController);
+    .controller('MainCtrl', mainController);
 
-  function MainController(socketApi) {
+  function mainController(socketApi) {
     var vm = this;
 
   }

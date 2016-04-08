@@ -8,7 +8,9 @@
       'utils.logger',
       'app.templates',
       'app.config',
-      'app.main'
+      'app.header-toolbar',
+      'app.main',
+      'app.login'
     ]);
 
 })();
