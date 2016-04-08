@@ -1,16 +1,12 @@
 <md-card ng-cloak>
-  <md-tabs>
+  <md-tabs md-dynamic-height md-border-bottom>
 
     <md-tab label="Sign Up">
-      <md-content class="md-padding">
-        <p>Sign Up</p>
-      </md-content>
+      <div ng-include="'routes/login/partials/sign-in.tpl'"></div>
     </md-tab>
 
     <md-tab label="Sign In">
-      <md-content class="md-padding">
-        <p>Sign In</p>
-      </md-content>
+      <div ng-include="'routes/login/partials/sign-up.tpl'"></div>
     </md-tab>
 
   </md-tabs>

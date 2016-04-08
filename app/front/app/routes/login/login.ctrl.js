@@ -7,7 +7,11 @@
 
   function loginController() {
     var vm = this;
+    vm.onSignInSubmit = onSignInSubmit;
 
+    function onSignInSubmit() {
+      console.log(1);
+    }
   }
 
 })();
