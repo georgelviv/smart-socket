@@ -3,7 +3,8 @@
 
   angular
     .module('app.login', [
-      'ngRoute'
+      'ngRoute',
+      'utils.compareTo'
     ]);
 
 })();
