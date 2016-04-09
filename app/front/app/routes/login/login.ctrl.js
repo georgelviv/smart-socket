@@ -15,7 +15,14 @@
     };
 
     function onSignUpSubmit() {
-      console.log(1);
+      authService.register(vm.forms.signIn).then(onRegisterSuccess, onRegisterError);
+
+      function onRegisterSuccess() {
+        console.log('q');
+      }
+      function onRegisterError() {
+        console.log('q');
+      }
     }
 
     function onSignInSubmit() {

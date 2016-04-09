@@ -4,7 +4,8 @@
   angular
     .module('app.authService')
     .constant('api', {
-      login: '/login'
+      login: '/login',
+      register: '/register'
     })
     .constant('USER_ROLES', {
       all: '*',

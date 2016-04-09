@@ -8,11 +8,19 @@
   function authService($http, api, Session) {
       var service = {
         login: login,
+        register: register,
         isAuthenticated: isAuthenticated,
         isAuthorized: isAuthorized
       };
 
       return service;
+
+      function register(userForm) {
+        return $http.post(api.register, userForm).then(function (res) {
+          var data = res.data;
+          return res.data;
+        });
+      }
 
       function login(credentials) {
         return $http.post(api.login, credentials).then(function (res) {
