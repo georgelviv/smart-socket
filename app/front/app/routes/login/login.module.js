@@ -4,7 +4,8 @@
   angular
     .module('app.login', [
       'ngRoute',
-      'utils.compareTo'
+      'utils.compareTo',
+      'app.authService'
     ]);
 
 })();

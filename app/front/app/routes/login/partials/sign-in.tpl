@@ -14,10 +14,10 @@
     <md-input-container class="md-block">
       <label>Password</label>
       <input name="password" type="password" ng-model="vm.forms.signIn.password"
-             required minlength="3">
+             required minlength="6">
       <div ng-messages="signInForm.password.$error">
         <div ng-message="required">Password is required.</div>
-        <div ng-message="minlength">Minimum length is 3 symbols.</div>
+        <div ng-message="minlength">Minimum length is 6 symbols.</div>
       </div>
     </md-input-container>
 

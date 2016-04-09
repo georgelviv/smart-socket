@@ -5,7 +5,7 @@
     .module('app.login')
     .controller('LoginCtrl', loginController);
 
-  function loginController() {
+  function loginController($rootScope, authService, AUTH_EVENTS) {
     var vm = this;
     vm.onSignInSubmit = onSignInSubmit;
     vm.onSignUpSubmit = onSignUpSubmit;
@@ -15,11 +15,19 @@
     };
 
     function onSignUpSubmit() {
-      console.log(2);
+      console.log(1);
     }
 
     function onSignInSubmit() {
-      console.log(1);
+      authService.login(vm.forms.signIn).then(onLoginSucces, onLoginFail);
+
+      function onLoginSucces() {
+        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+      }
+
+      function onLoginFail() {
+        $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+      }
     }
   }
 
