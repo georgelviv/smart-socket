@@ -2,12 +2,13 @@
   <form name="signInForm" ng-submit="vm.onSignInSubmit()" novalidate>
 
     <md-input-container class="md-block">
-      <label>Email</label>
-      <input name="email" type="email" ng-model="vm.forms.signIn.email" required
-             ng-pattern="/^.+@.+\..+$/">
+      <label>Username</label>
+      <input name="username" type="text" ng-model="vm.forms.signIn.username" required
+             minlength="4" md-maxlength="30">
       <div ng-messages="signInForm.email.$error">
-        <div ng-message="required">Email is required.</div>
-        <div ng-message="pattern">Email should be correct.</div>
+        <div ng-message="required">Username is required.</div>
+        <div ng-message="minlength">Minimum length is 4 symbols.</div>
+        <div ng-message="md-maxlength">Maximum length is 30 symbols.</div>
       </div>
     </md-input-container>
 

@@ -23,7 +23,10 @@ function init() {
     username: String,
     password: String,
     email: String,
-    role: String
+    role: {
+      type: String,
+      default: 'user'
+    }
   });
 
   User.plugin(passportLocalMongoose);

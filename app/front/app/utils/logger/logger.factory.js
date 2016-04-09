@@ -5,11 +5,13 @@
     .module('utils.logger')
     .factory('loggerApi', loggerApi);
 
-  function loggerApi($mdToast) {
+  function loggerApi($injector) {
       var service = {
         show: show,
         error: error
       };
+
+      var $mdToast = $injector.get('$mdToast');
       var timeout = 1000;
       var timer = {};
 

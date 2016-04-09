@@ -6,7 +6,7 @@
       'ngMaterial',
       'ngMessages',
       'utils.spinner',
-      'utils.logger',
+      'utils.interceptor',
       'app.templates',
       'app.config',
       'app.header-toolbar',
