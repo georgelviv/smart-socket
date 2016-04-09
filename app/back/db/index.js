@@ -28,9 +28,12 @@ function init() {
   function onDataBaseConnect(err) {
     if (err) {
       var errMsg = err.message || '';
+      dbModule.status = 'Database not connected: ' + errMsg;
       console.log('Database not connected: ', errMsg);
+
       return;
     }
+    dbModule.status = 'Database connected';
     console.log('Database connected');
   }
 }

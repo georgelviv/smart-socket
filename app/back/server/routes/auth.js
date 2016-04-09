@@ -31,12 +31,6 @@ function init() {
 
   function onRegister(req, res) {
     console.log(req.body);
-    res.send({
-      id: 1,
-      user: {
-        id: 1,
-        role: 'admin'
-      }
-    });
+    res.send(dbModule.status);
   }
 }
