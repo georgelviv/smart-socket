@@ -37,7 +37,7 @@
              required minlength="3" compare-to="vm.forms.signUp.password">
       <div ng-messages="signUpForm.confirmPassword.$error">
         <div ng-message="required">Please confirm passwords.</div>
-        <div ng-message="compareTo">Password sould be equals.</div>
+        <div ng-message="compareTo">Password should be equals.</div>
       </div>
     </md-input-container>
 
