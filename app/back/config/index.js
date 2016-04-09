@@ -17,7 +17,6 @@ function init() {
     .file({
       file: __dirname + '/../../../config.json'
     });
-  console.log('PORT: ' + nconf.get('PORT'));
 
   nconf.defaults({
     'NODE_ENV': 'development'

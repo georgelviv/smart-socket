@@ -1,6 +1,7 @@
 'use strict';
 
 let serverModule = require('../index');
+let authRouteModule = require('./auth');
 let isInited = false;
 
 module.exports.init = init;
@@ -14,20 +15,10 @@ function init() {
 
   let app = serverModule.app;
 
-  app.post('/login', onLogin);
+  authRouteModule.init();
 
   app.get('*', (req, res) => {
     res.redirect('/');
   });
 
-  function onLogin(req, res) {
-    console.log(req.body);
-    res.send({
-      id: 1,
-      user: {
-        id: 1,
-        role: 'admin'
-      }
-    });
-  }
 }

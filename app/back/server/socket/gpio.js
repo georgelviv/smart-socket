@@ -1,6 +1,6 @@
 'use strict';
 
-let espModule = require('../../esp');
+let espModule = require('../esp');
 
 let gpioSocketModule = {
   init: init

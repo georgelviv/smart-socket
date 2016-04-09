@@ -2,9 +2,7 @@
 
 let express = require('express');
 let nconf = require('nconf');
-let bodyParser = require('body-parser');
-let helmet = require('helmet');
-let compression = require('compression');
+let middlewares = require('./middlewares');
 
 let isInited = false;
 let serverModule = {
@@ -24,11 +22,7 @@ function init() {
   serverModule.server = require('http').Server(serverModule.app);
 
   let app = serverModule.app;
-
-  app.use(helmet());
-  app.use(compression());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
+  middlewares.init();
 
   app.use(express.static(nconf.get('frontPath') + '/'));
 
