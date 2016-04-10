@@ -5,39 +5,99 @@
     .module('app.authService')
     .factory('authService', authService);
 
-  function authService($http, api, Session) {
+  function authService($http, $q, $rootScope, api, AUTH_EVENTS) {
       var service = {
         login: login,
+        logout: logout,
         register: register,
-        isAuthenticated: isAuthenticated,
-        isAuthorized: isAuthorized
+        isLoggedIn: isLoggedIn,
+        getUserStatus: getUserStatus
       };
+
+      var user = null;
 
       return service;
 
-      function register(userForm) {
-        return $http.post(api.register, userForm).then(function (res) {
-          return res.data;
-        });
-      }
+      function register(userObj) {
+        var userData = {
+          username: userObj.username,
+          password: userObj.password,
+          email: userObj.email
+        };
 
-      function login(credentials) {
-        return $http.post(api.login, credentials).then(function (res) {
-          var data = res.data;
-          Session.create(data._id, data.role);
-          return res.data;
-        });
-      }
+        var deferred = $q.defer();
 
-      function isAuthenticated() {
-        return !!Session.userId;
-      }
+        $http.post(api.register, userData).success(onSuccess).error(onError);
 
-      function isAuthorized(authorizedRoles) {
-        if (!angular.isArray(authorizedRoles)) {
-          authorizedRoles = [authorizedRoles];
+        return deferred.promise;
+
+        function onSuccess(data, status) {
+          if (status === 200 && data.status) {
+            user = data.user;
+            deferred.resolve(data.user);
+            $rootScope.$emit(AUTH_EVENTS.login);
+          } else {
+            deferred.reject(data);
+          }
         }
-        return (isAuthenticated() && authorizedRoles.indexOf(Session.userRole) !== -1);
+        function onError(error) {
+          deferred.reject(error);
+        }
+      }
+
+      function logout() {
+        var deffered = $q.defer();
+
+        $http.get(api.logout).success(onSuccess).error(onError);
+
+        return deffered.promise;
+
+        function onSuccess(data) {
+          user = false;
+          deffered.resolve(data);
+          $rootScope.$emit(AUTH_EVENTS.logout);
+        }
+        function onError(error) {
+          user = false;
+          deffered.reject(error);
+          $rootScope.$emit(AUTH_EVENTS.logout);
+        }
+      }
+
+      function login(username, password) {
+        var credentials = {
+          username: username,
+          password: password
+        };
+        var deffered = $q.defer();
+
+        $http.post(api.login, credentials).success(onSuccess).error(onError);
+
+        return deffered.promise;
+
+        function onSuccess(data, status) {
+          if (status === 200 && data.status) {
+            user = data.user;
+            deffered.resolve(data.user);
+            $rootScope.$emit(AUTH_EVENTS.login);
+          } else {
+            user = false;
+            deffered.reject(data);
+          }
+        }
+
+        function onError(error) {
+          user = false;
+          deffered.reject(error);
+        }
+      }
+
+      function isLoggedIn() {
+        return !!user;
+      }
+
+      function getUserStatus() {
+        return user;
       }
 
   }

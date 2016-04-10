@@ -5,7 +5,7 @@
     .module('app.login')
     .controller('LoginCtrl', loginController);
 
-  function loginController($rootScope, loggerApi, authService, AUTH_EVENTS) {
+  function loginController($rootScope, $location, loggerApi, authService, AUTH_EVENTS) {
     var vm = this;
     vm.onSignInSubmit = onSignInSubmit;
     vm.onSignUpSubmit = onSignUpSubmit;
@@ -18,36 +18,29 @@
       authService.register(vm.forms.signUp).then(onRegisterSuccess, onRegisterError);
 
       function onRegisterSuccess(data) {
-        console.log(data);
+        $location.path('/dashboard');
+        loggerApi.show('Welcome aboard, ' + data.username + ' !');
+      }
 
-        if (data.name === 'UserExistsError') {
-          loggerApi.error(data.message);
+      function onRegisterError(error) {
+        if (error.name === 'UserExistsError') {
+          loggerApi.error(error.message);
           return;
         }
-        if (data._id) {
-          loggerApi.show('Welcome aboard, ' + data.username + ' !');
-        }
-
-      }
-      function onRegisterError(error) {
-        console.log(error);
         loggerApi.error('Error on register');
       }
     }
 
     function onSignInSubmit() {
-      authService.login(vm.forms.signIn).then(onLoginSucces, onLoginFail);
+      var form = vm.forms.signIn;
+      authService.login(form.username, form.password).then(onLoginSucces, onLoginFail);
 
       function onLoginSucces(data) {
-        console.log(data);
-        if (data._id) {
-          loggerApi.show('Nice to meet you, ' + data.username + ' !');
-        }
+        loggerApi.show('Nice to meet you, ' + data.username + ' !');
       }
 
       function onLoginFail(error) {
-        console.log(error);
-        if (error.data === 'Unauthorized') {
+        if (error.data === 'Unauthorized' || error === 'Unauthorized') {
           loggerApi.error('Wrong username or password');
           return;
         }

@@ -5,6 +5,7 @@
     .module('app.authService')
     .constant('api', {
       login: '/login',
+      logout: '/logout',
       register: '/register'
     })
     .constant('USER_ROLES', {
@@ -14,12 +15,8 @@
       guest: 'guest'
     })
     .constant('AUTH_EVENTS', {
-      loginSuccess: 'auth-login-success',
-      loginFailed: 'auth-login-failed',
-      logoutSuccess: 'auth-logout-success',
-      sessionTimeout: 'auth-session-timeout',
-      notAuthenticated: 'auth-not-authenticated',
-      notAuthorized: 'auth-not-authorized'
+      login: 'auth-login',
+      logout: 'auth-logout'
     });
 
 })();

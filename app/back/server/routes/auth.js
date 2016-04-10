@@ -23,10 +23,27 @@ function init() {
   passport.deserializeUser(User.deserializeUser());
 
   app.post('/login', passport.authenticate('local'), onLogin);
+  app.get('/logout', onLogout);
   app.post('/register', onRegister);
 
+
   function onLogin(req, res) {
-    res.send(req.user);
+    res.status(200).json({
+      status: 'Login successful',
+      user: {
+        username: req.user.username,
+        email: req.user.email,
+        id: req.user._id,
+        role: req.user.role
+      }
+    });
+  }
+
+  function onLogout(req, res) {
+    req.logout();
+    res.status(200).json({
+      status: 'Bye!'
+    });
   }
 
   function onRegister(req, res) {
@@ -44,7 +61,15 @@ function init() {
         return;
       }
       passport.authenticate('local')(req, res, function () {
-        res.send(user);
+        res.status(200).json({
+          status: 'Registered',
+          user: {
+            username: req.user.username,
+            email: req.user.email,
+            id: req.user._id,
+            role: req.user.role
+          }
+        });
       });
     }
 

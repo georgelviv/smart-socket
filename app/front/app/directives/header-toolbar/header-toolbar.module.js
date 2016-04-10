@@ -2,6 +2,8 @@
   'use strict';
 
   angular
-    .module('app.header-toolbar', []);
+    .module('app.header-toolbar', [
+      'app.authService'
+    ]);
 
 })();

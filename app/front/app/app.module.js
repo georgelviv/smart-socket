@@ -11,7 +11,8 @@
       'app.config',
       'app.header-toolbar',
       'app.main',
-      'app.login'
+      'app.login',
+      'app.dashboard'
     ]);
 
 })();

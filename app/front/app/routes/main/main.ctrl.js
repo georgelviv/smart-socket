@@ -5,7 +5,7 @@
     .module('app.main')
     .controller('MainCtrl', mainController);
 
-  function mainController(socketApi) {
+  function mainController() {
     var vm = this;
 
   }
