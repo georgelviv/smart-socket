@@ -1,4 +1,4 @@
-<md-card layout-padding>
+<md-card layout-padding ng-clock>
   <h2>
     Dashboard
   </h2>

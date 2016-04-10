@@ -8,9 +8,15 @@
   function dashboardCtrl($rootScope, AUTH_EVENTS, authService, loggerApi) {
     var vm = this;
 
-    vm.username = authService.getUser().username;
+    vm.username = null;
     $rootScope.$on(AUTH_EVENTS.login, onLogin);
     $rootScope.$on(AUTH_EVENTS.logout, onLogout);
+
+    function init() {
+      if (authService.isLoggedIn()) {
+        vm.username = authService.getUser().username;
+      }
+    }
 
     function onLogin() {
       vm.username = authService.getUser().username;

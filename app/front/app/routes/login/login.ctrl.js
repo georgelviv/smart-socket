@@ -20,7 +20,7 @@
       function onRegisterSuccess(data) {
         $location.path('/dashboard');
         $route.reload();
-        loggerApi.show('Welcome aboard, ' + vm.username + ' !');
+        loggerApi.show('Welcome aboard, ' + data.user.username + ' !');
       }
 
       function onRegisterError(error) {
