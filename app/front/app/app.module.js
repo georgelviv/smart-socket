@@ -9,6 +9,7 @@
       'utils.interceptor',
       'app.templates',
       'app.config',
+      'app.authService',
       'app.header-toolbar',
       'app.main',
       'app.login',

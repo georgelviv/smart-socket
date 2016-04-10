@@ -10,7 +10,10 @@
       when('/', {
         templateUrl: 'routes/main/main.tpl',
         controller: 'MainCtrl as vm',
-        title: 'Main'
+        title: 'Main',
+        access: {
+          restricted: false
+        }
       }).otherwise({
         redirectTo: '/'
       });

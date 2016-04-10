@@ -10,7 +10,10 @@
       when('/dashboard', {
         templateUrl: 'routes/dashboard/dashboard.tpl',
         controller: 'DashboardCtrl as vm',
-        title: 'Dashboard'
+        title: 'Dashboard',
+        access: {
+          restricted: true
+        }
       });
   }
 

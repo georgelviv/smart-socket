@@ -5,16 +5,15 @@
     .module('app.dashboard')
     .controller('DashboardCtrl', dashboardCtrl);
 
-  function dashboardCtrl($rootScope, AUTH_EVENTS, authService) {
+  function dashboardCtrl($rootScope, AUTH_EVENTS, authService, loggerApi) {
     var vm = this;
 
-    vm.username = null;
+    vm.username = authService.getUser().username;
     $rootScope.$on(AUTH_EVENTS.login, onLogin);
     $rootScope.$on(AUTH_EVENTS.logout, onLogout);
 
     function onLogin() {
-      vm.username = authService.getUserStatus().username;
-
+      vm.username = authService.getUser().username;
     }
 
     function onLogout() {

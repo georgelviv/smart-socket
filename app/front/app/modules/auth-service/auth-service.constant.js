@@ -3,10 +3,11 @@
 
   angular
     .module('app.authService')
-    .constant('api', {
-      login: '/login',
-      logout: '/logout',
-      register: '/register'
+    .constant('AUTH_API', {
+      login: '/user/login',
+      logout: '/user/logout',
+      register: '/user/register',
+      status: '/user/status'
     })
     .constant('USER_ROLES', {
       all: '*',

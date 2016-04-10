@@ -5,7 +5,7 @@
     .module('app.header-toolbar')
     .directive('headerToolbar', headerToolbarDirective);
 
-  function headerToolbarDirective($rootScope, $mdDialog, authService, AUTH_EVENTS) {
+  function headerToolbarDirective($rootScope, $mdDialog, $location, $route, authService, AUTH_EVENTS) {
     var directive = {
       link: link,
       controllerAs: 'vm',
@@ -18,7 +18,7 @@
     return directive;
 
     function link(scope) {
-      scope.isLogged = false;
+      scope.isLogged = authService.isLoggedIn();
       scope.showConfirm = showConfirm;
       $rootScope.$on(AUTH_EVENTS.login, onLogin);
       $rootScope.$on(AUTH_EVENTS.logout, onLogout);
@@ -33,17 +33,20 @@
 
       function showConfirm(ev) {
         var confirm = $mdDialog.confirm()
-              .title('Would you like to logout')
-              .textContent('All of the banks have agreed to forgive you your debts.')
-              .ariaLabel('Lucky day')
+              .title('Would you like to logout?')
               .targetEvent(ev)
-              .ok('Please do it!')
-              .cancel('Sounds like a scam');
-        $mdDialog.show(confirm).then(function() {
-          scope.status = 'You decided to get rid of your debt.';
-        }, function() {
-          scope.status = 'You decided to keep your debt.';
-        });
+              .ok('Logout')
+              .cancel('Cancel');
+        $mdDialog.show(confirm).then(onConfirm);
+
+        function onConfirm() {
+          authService.logout().then(onCb, onCb);
+
+          function onCb() {
+            $location.path('/');
+            $route.reload();
+          }
+        }
     }
 
     }

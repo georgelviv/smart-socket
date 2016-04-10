@@ -22,10 +22,29 @@ function init() {
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
 
-  app.post('/login', passport.authenticate('local'), onLogin);
-  app.get('/logout', onLogout);
-  app.post('/register', onRegister);
+  app.post('/user/login', passport.authenticate('local'), onLogin);
+  app.get('/user/logout', onLogout);
+  app.post('/user/register', onRegister);
+  app.get('/user/status', onStatus);
 
+  function onStatus(req, res) {
+    if (!req.isAuthenticated()) {
+      res.status(200).json({
+        status: false
+      });
+      return;
+    } else {
+      res.status(200).json({
+        status: true,
+        user: {
+          username: req.user.username,
+          email: req.user.email,
+          id: req.user._id,
+          role: req.user.role
+        }
+      });
+    }
+  }
 
   function onLogin(req, res) {
     res.status(200).json({

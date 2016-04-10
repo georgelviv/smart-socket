@@ -5,13 +5,14 @@
     .module('app.authService')
     .factory('authService', authService);
 
-  function authService($http, $q, $rootScope, api, AUTH_EVENTS) {
+  function authService($http, $q, $rootScope, AUTH_API, AUTH_EVENTS) {
       var service = {
         login: login,
         logout: logout,
         register: register,
         isLoggedIn: isLoggedIn,
-        getUserStatus: getUserStatus
+        getUserStatus: getUserStatus,
+        getUser: getUser
       };
 
       var user = null;
@@ -27,7 +28,7 @@
 
         var deferred = $q.defer();
 
-        $http.post(api.register, userData).success(onSuccess).error(onError);
+        $http.post(AUTH_API.register, userData).success(onSuccess).error(onError);
 
         return deferred.promise;
 
@@ -48,7 +49,7 @@
       function logout() {
         var deffered = $q.defer();
 
-        $http.get(api.logout).success(onSuccess).error(onError);
+        $http.get(AUTH_API.logout).success(onSuccess).error(onError);
 
         return deffered.promise;
 
@@ -71,7 +72,7 @@
         };
         var deffered = $q.defer();
 
-        $http.post(api.login, credentials).success(onSuccess).error(onError);
+        $http.post(AUTH_API.login, credentials).success(onSuccess).error(onError);
 
         return deffered.promise;
 
@@ -96,8 +97,31 @@
         return !!user;
       }
 
-      function getUserStatus() {
+      function getUser() {
         return user;
+      }
+
+      function getUserStatus() {
+        var deffered = $q.defer();
+        $http.get(AUTH_API.status).success(onSuccess).error(onError);
+
+        return deffered.promise;
+
+        function onSuccess(data) {
+          if (data.status) {
+            user = data.user;
+            $rootScope.$emit(AUTH_EVENTS.login);
+            deffered.resolve(data);
+          } else {
+            user = false;
+            deffered.reject(data);
+          }
+        }
+
+        function onError(error) {
+          user = false;
+          deffered.reject(error);
+        }
       }
 
   }

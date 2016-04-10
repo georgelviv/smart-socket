@@ -10,7 +10,11 @@
       when('/login', {
         templateUrl: 'routes/login/login.tpl',
         controller: 'LoginCtrl as vm',
-        title: 'Sign Up/In'
+        title: 'Sign Up/In',
+        access: {
+          restricted: false,
+          isLogin: true
+        }
       });
   }
 

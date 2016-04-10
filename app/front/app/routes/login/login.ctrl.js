@@ -5,7 +5,7 @@
     .module('app.login')
     .controller('LoginCtrl', loginController);
 
-  function loginController($rootScope, $location, loggerApi, authService, AUTH_EVENTS) {
+  function loginController($rootScope, $location, $route, loggerApi, authService, AUTH_EVENTS) {
     var vm = this;
     vm.onSignInSubmit = onSignInSubmit;
     vm.onSignUpSubmit = onSignUpSubmit;
@@ -19,7 +19,8 @@
 
       function onRegisterSuccess(data) {
         $location.path('/dashboard');
-        loggerApi.show('Welcome aboard, ' + data.username + ' !');
+        $route.reload();
+        loggerApi.show('Welcome aboard, ' + vm.username + ' !');
       }
 
       function onRegisterError(error) {
@@ -36,6 +37,8 @@
       authService.login(form.username, form.password).then(onLoginSucces, onLoginFail);
 
       function onLoginSucces(data) {
+        $location.path('/dashboard');
+        $route.reload();
         loggerApi.show('Nice to meet you, ' + data.username + ' !');
       }
 
