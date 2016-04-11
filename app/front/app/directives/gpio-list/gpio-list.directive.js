@@ -19,9 +19,10 @@
 
     function link(scope) {
       scope.gpioArray = [];
+      scope.isGettingStatus = false;
       scope.changeStatus = changeStatus;
+      scope.updateStatus = updateStatus;
 
-      init();
       socketApi.on('app.gpio', onGPIOMsg);
 
 
@@ -29,9 +30,12 @@
         setGPIOStatus(gpio, gpio.status);
       }
 
-      function init() {
+      function updateStatus() {
         $timeout(spinnerApi.show);
-        angular.copy(GPIO_ARRAY, scope.gpioArray);
+        if (!scope.gpioArray.length) {
+          angular.copy(GPIO_ARRAY, scope.gpioArray);
+        }
+        scope.isGettingStatus = true;
         scope.gpioArray.forEach(function (item) {
           item.isInit = false;
           getGPIOStatus(item);
@@ -60,6 +64,7 @@
         })[0]);
         if (!notInited) {
           spinnerApi.hide();
+          scope.isGettingStatus = false;
         }
       }
 
