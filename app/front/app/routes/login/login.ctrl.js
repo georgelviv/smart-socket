@@ -19,7 +19,6 @@
 
       function onRegisterSuccess(data) {
         $location.path('/dashboard');
-        $route.reload();
         loggerApi.show('Welcome aboard, ' + data.user.username + ' !');
       }
 
@@ -38,7 +37,6 @@
 
       function onLoginSucces(data) {
         $location.path('/dashboard');
-        $route.reload();
         loggerApi.show('Nice to meet you, ' + data.username + ' !');
       }
 

@@ -11,6 +11,7 @@
     vm.username = null;
     $rootScope.$on(AUTH_EVENTS.login, onLogin);
     $rootScope.$on(AUTH_EVENTS.logout, onLogout);
+    init();
 
     function init() {
       if (authService.isLoggedIn()) {
