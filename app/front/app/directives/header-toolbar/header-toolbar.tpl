@@ -1,13 +1,14 @@
 <md-toolbar class="md-primary">
   <div class="md-toolbar-tools">
-    <md-button ng-show="isLogged" aria-label="Sidebar" ng-click="toggleSidebar()" hide-gt-md>
+    <md-button class="md-icon-button" ng-show="isLogged" aria-label="Sidebar"
+               ng-click="toggleSidebar()" hide-gt-md>
       <md-icon>menu</md-icon>
     </md-button>
-    <a href="/#/" title="Home">
-      <h3>
+    <h2>
+      <a href="/#/" title="Home">
         Smart Socket
-      </h3>
-    </a>
+      </a>
+    </h2>
     <span flex></span>
     <md-button ng-hide="isLogged" class="md-icon-button" aria-label="Sign in/up"  href="/#/login">
       <md-icon>person</md-icon>

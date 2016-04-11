@@ -13,8 +13,8 @@
 <body>
 
   <section class="main" layout="row" flex ng-cloak>
-    <md-sidenav ng-show="isLoggedIn" class="md-sidenav-left md-whiteframe-4dp"
-                md-is-locked-open="$mdMedia('gt-md')" md-component-id="sidebar">
+    <md-sidenav ng-show="isLoggedIn" class="md-sidenav-left" ng-cloak md-whiteframe="4"
+                md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-component-id="sidebar">
       <sidebar></sidebar>
     </md-sidenav>
 

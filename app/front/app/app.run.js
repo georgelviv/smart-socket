@@ -19,7 +19,6 @@
       } else {
         check();
       }
-      $rootScope.isLoggedIn = authService.isLoggedIn();
 
       function check() {
         if (next.access && next.access.restricted && authService.isLoggedIn() === false) {
@@ -30,6 +29,7 @@
           $location.path('/dashboard');
           $route.reload();
         }
+        $rootScope.isLoggedIn = authService.isLoggedIn();
       }
     }
   }
