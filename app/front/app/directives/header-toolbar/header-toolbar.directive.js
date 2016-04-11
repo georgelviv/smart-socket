@@ -5,7 +5,8 @@
     .module('app.header-toolbar')
     .directive('headerToolbar', headerToolbarDirective);
 
-  function headerToolbarDirective($rootScope, $mdDialog, $location, $route, authService, AUTH_EVENTS) {
+  function headerToolbarDirective($rootScope, $mdDialog, $location,
+                                  $route, authService, AUTH_EVENTS, sidebarApi) {
     var directive = {
       link: link,
       controllerAs: 'vm',
@@ -20,8 +21,14 @@
     function link(scope) {
       scope.isLogged = authService.isLoggedIn();
       scope.showConfirm = showConfirm;
+      scope.toggleSidebar = toggleSidebar;
+
       $rootScope.$on(AUTH_EVENTS.login, onLogin);
       $rootScope.$on(AUTH_EVENTS.logout, onLogout);
+
+      function toggleSidebar() {
+        sidebarApi.toggle();
+      }
 
       function onLogin() {
         scope.isLogged = true;

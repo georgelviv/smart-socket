@@ -13,6 +13,7 @@
       'app.header-toolbar',
       'app.main',
       'app.login',
+      'app.sidebar',
       'app.dashboard'
     ]);
 

@@ -15,10 +15,11 @@
 
     function onRouteChangeStart(event, next, current) {
       if (authService.getUser() === null) {
-        authService.getUserStatus().then(check, check);    
+        authService.getUserStatus().then(check, check);
       } else {
         check();
       }
+      $rootScope.isLoggedIn = authService.isLoggedIn();
 
       function check() {
         if (next.access && next.access.restricted && authService.isLoggedIn() === false) {

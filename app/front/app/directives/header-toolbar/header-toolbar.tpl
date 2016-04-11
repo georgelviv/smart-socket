@@ -1,5 +1,8 @@
 <md-toolbar class="md-primary">
   <div class="md-toolbar-tools">
+    <md-button ng-show="isLogged" aria-label="Sidebar" ng-click="toggleSidebar()" hide-gt-md>
+      <md-icon>menu</md-icon>
+    </md-button>
     <a href="/#/" title="Home">
       <h3>
         Smart Socket
