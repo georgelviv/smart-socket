@@ -12,28 +12,26 @@
 </head>
 <body>
 
-  <section class="main" layout="row" flex ng-cloak>
-    <md-sidenav ng-show="isLoggedIn" class="md-sidenav-left" ng-cloak md-whiteframe="4"
-                md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-component-id="sidebar">
-      <sidebar></sidebar>
-    </md-sidenav>
-
-    <main layout="column" flex>
-
-      <header-toolbar></header-toolbar>
+  <section class="main" layout="column" flex ng-cloak>
+    <header-toolbar></header-toolbar>
+    <main layout="row" flex>
+      <md-sidenav ng-show="isLoggedIn" class="md-sidenav-left" ng-cloak md-whiteframe="4"
+                  md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-component-id="sidebar">
+        <sidebar></sidebar>
+      </md-sidenav>
 
       <md-content flex layout="column">
         <div class="main__content-wrapper" flex="100">
           <div layout="row" layout-align="center center">
-            <div class="main__content" flex-gt-sm="90" flex-gt-md="80" flex="90">
+            <div class="main__content" flex="90">
               <div class="view" ng-view></div>
             </div>
           </div>
         </div>
-        <spinner></spinner>
+
       </md-content>
     </main>
-
+    <spinner></spinner>
   </section>
 
 
