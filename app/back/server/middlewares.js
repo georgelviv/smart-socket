@@ -31,7 +31,7 @@ function init() {
   app.use(bodyParser.json());
   app.use(cookieParser());
   app.use(expressSession({
-      secret: nconf.get('cookieSecret'),
+      secret: Math.random().toString(36).replace(/[^a-z]+/g, ''),
       resave: false,
       saveUninitialized: false
   }));

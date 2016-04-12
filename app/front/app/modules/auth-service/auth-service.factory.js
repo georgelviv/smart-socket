@@ -98,7 +98,7 @@
       }
 
       function getUser() {
-        return user;
+        return angular.copy(user);
       }
 
       function getUserStatus() {
