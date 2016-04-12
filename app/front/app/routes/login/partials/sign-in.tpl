@@ -5,7 +5,7 @@
       <label>Username</label>
       <input name="username" type="text" ng-model="vm.forms.signIn.username" required
              minlength="4" md-maxlength="30">
-      <div ng-messages="signInForm.email.$error">
+      <div ng-messages="signInForm.username.$error">
         <div ng-message="required">Username is required.</div>
         <div ng-message="minlength">Minimum length is 4 symbols.</div>
         <div ng-message="md-maxlength">Maximum length is 30 symbols.</div>

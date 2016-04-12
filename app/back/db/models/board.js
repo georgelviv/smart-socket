@@ -19,9 +19,10 @@ function init() {
   let Schema = mongoose.Schema;
 
   let Board = new Schema({
-    nama: String,
+    name: String,
     ip: String,
-    secret: String
+    secret: String,
+    userId: String
   });
 
   userModelModule.model = mongoose.model('Board', Board);

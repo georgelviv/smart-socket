@@ -5,6 +5,5 @@
     "front": "app/front"
   },
   "PORT": "3000",
-  "espUrl": "http://192.168.1.102:3000",
   "mongodb": "mongodb://<dbcredentilas>@ds013270.mlab.com:13270/smart-socket"
 }
