@@ -1,6 +1,6 @@
 'use strict';
 let request = require('request');
-let config = require('../../../../config');
+let config = require('../config');
 
 let espModule = {
   set: set,
@@ -15,8 +15,6 @@ function get(gpioId, cb) {
     return;
   }
   request(config.espUrl + '/gpio/' + gpioId + '?method=get', onResponse.bind(this, cb));
-
-
 }
 
 function set(gpioId, value, cb) {

@@ -16,11 +16,12 @@
       </p>
     </div>
   </md-toolbar>
-  <md-list layout="row" layout-align="left center" flex>
-    <md-list-item ng-href="/#/dashboard" flex>
-      <md-icon>dashboard</md-icon>
+  <md-list layout-align="left center">
+    <md-list-item ng-repeat="item in navigation" ng-href="{{item.url}}"
+                  ng-disabled="current === item.name">
+      <md-icon>{{item.icon}}</md-icon>
       <p>
-        Dashboard
+        {{item.title}}
       </p>
     </md-list-item>
   </md-list>

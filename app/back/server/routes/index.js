@@ -2,6 +2,7 @@
 
 let serverModule = require('../index');
 let authRouteModule = require('./auth');
+let boardRouteModule = require('./board');
 let isInited = false;
 
 module.exports.init = init;
@@ -16,6 +17,7 @@ function init() {
   let app = serverModule.app;
 
   authRouteModule.init();
+  boardRouteModule.init();
 
   app.get('*', (req, res) => {
     res.redirect('/');

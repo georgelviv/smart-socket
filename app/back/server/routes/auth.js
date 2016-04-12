@@ -1,6 +1,7 @@
 'use strict';
 
 let passport = require('passport');
+let express = require('express');
 let LocalStrategy = require('passport-local').Strategy;
 let serverModule = require('../index');
 let dbModule = require('../../db');
@@ -18,14 +19,17 @@ function init() {
   let app = serverModule.app;
 
   var User = dbModule.models.user;
+  var router = express.Router();
   passport.use(new LocalStrategy(User.authenticate()));
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
 
-  app.post('/user/login', passport.authenticate('local'), onLogin);
-  app.get('/user/logout', onLogout);
-  app.post('/user/register', onRegister);
-  app.get('/user/status', onStatus);
+  router.post('/login', passport.authenticate('local'), onLogin);
+  router.get('/logout', onLogout);
+  router.post('/register', onRegister);
+  router.get('/status', onStatus);
+
+  app.use('/user', router);
 
   function onStatus(req, res) {
     if (!req.isAuthenticated()) {

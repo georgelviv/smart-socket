@@ -14,7 +14,8 @@
       'app.main',
       'app.login',
       'app.sidebar',
-      'app.dashboard'
+      'app.dashboard',
+      'app.boards'
     ]);
 
 })();

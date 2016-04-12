@@ -1,6 +1,7 @@
 'use strict';
 
 let userModel = require('./models/user');
+let boardModel = require('./models/board');
 let mongoose = require('mongoose');
 let nconf = require('nconf');
 
@@ -20,7 +21,9 @@ function init() {
   isInited = true;
 
   userModel.init();
+  boardModel.init();
   dbModule.models.user = userModel.model;
+  dbModule.models.board = boardModel.model;
 
   var mongoDBLink = nconf.get('mongodb').replace('<dbcredentilas>', nconf.get('DB_CREDENTIALS'));
   mongoose.connect(mongoDBLink, onDataBaseConnect);

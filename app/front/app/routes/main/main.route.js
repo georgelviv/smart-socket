@@ -11,6 +11,7 @@
         templateUrl: 'routes/main/main.tpl',
         controller: 'MainCtrl as vm',
         title: 'Main',
+        name: 'main',
         access: {
           restricted: false
         }

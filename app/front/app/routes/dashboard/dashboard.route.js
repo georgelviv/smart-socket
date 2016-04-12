@@ -11,6 +11,7 @@
         templateUrl: 'routes/dashboard/dashboard.tpl',
         controller: 'DashboardCtrl as vm',
         title: 'Dashboard',
+        name: 'dashboard',
         access: {
           restricted: true
         }

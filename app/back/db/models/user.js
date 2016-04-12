@@ -20,11 +20,18 @@ function init() {
   let Schema = mongoose.Schema;
 
   let User = new Schema({
-    username: String,
-    password: String,
+    username: {
+      type: String,
+      required: true
+    },
+    password: {
+      type: String,
+      required: true
+    },
     email: String,
     role: {
       type: String,
+      required: true,
       default: 'user'
     }
   });
