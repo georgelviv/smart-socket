@@ -6,7 +6,7 @@
         <span ng-show="vm.boards && vm.boards.length === 0">
           At the moment, you don't have any boards, please add one.
         </span>
-        <span ng-show="vm.boards && vm.boards.length">
+        <span ng-show="vm.boards && vm.boards.length > 1">
           You have {{vm.boards.length}} boards.
         </span>
         <span ng-show="vm.boards && vm.boards.length === 1">

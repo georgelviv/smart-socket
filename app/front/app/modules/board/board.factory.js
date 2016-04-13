@@ -31,7 +31,7 @@
 
       function onSuccess(data) {
         if (data.status) {
-          removeById(boardId);
+          boards.splice(findIndexById(boardId), 1);
           deferred.resolve(data);
           $rootScope.$emit(BOARD_EVENTS.fetched);
         } else {
@@ -42,28 +42,23 @@
       function onError(error) {
         deferred.reject(error);
       }
-
-      function removeById(id) {
-        var index;
-        for (var i = 0; i < boards.length; i++) {
-          if (boards[i].id === id) {
-            index = i;
-            break;
-          }
-        }
-        boards.splice(index, 1);
-      }
     }
 
     function edit(boardId, editBoard) {
       var deferred = $q.defer();
+      var body = {
+        name: editBoard.name,
+        ip: editBoard.ip,
+        secret: editBoard.secret
+      };
 
-      $http.put(BOARD_API + '/' + boardId).success(onSuccess).error(onError);
+      $http.put(BOARD_API + '/' + boardId, body).success(onSuccess).error(onError);
 
       return deferred.promise;
 
       function onSuccess(data) {
         if (data.status) {
+          boards[findIndexById(boardId)] = data.board;
           deferred.resolve(data);
           $rootScope.$emit(BOARD_EVENTS.fetched);
         } else {
@@ -126,6 +121,17 @@
       }
 
       return deferred.promise;
+    }
+
+    function findIndexById(id) {
+      var index;
+      for (var i = 0; i < boards.length; i++) {
+        if (boards[i].id === id) {
+          index = i;
+          break;
+        }
+      }
+      return index;
     }
 
   }

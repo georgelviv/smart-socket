@@ -4,7 +4,7 @@
       <span class="md-headline">Edit Board</span>
     </md-card-title-text>
   </md-card-title>
-  <form name="editBoardForm" ng-submit="vm.submitEditBoard(board)" novalidate>
+  <form name="editBoardForm" ng-submit="vm.submitEditBoard(board, editBoardForm)" novalidate>
     <md-input-container class="md-block">
       <label>Board Name</label>
       <input name="name" type="text" ng-model="board.edit.name" required
@@ -39,10 +39,9 @@
       <md-button ng-click="vm.editBoard(board, false)">
         Cancel
       </md-button>
-      <md-button class="md-raised md-primary" type="submit"  ng-disabled="true">
+      <md-button class="md-raised md-primary" type="submit"  ng-disabled="editBoardForm.$invalid">
         Edit
       </md-button>
-      <!-- ng-disabled="editBoardForm.$invalid" -->
     </div>
 </form>
 </div>

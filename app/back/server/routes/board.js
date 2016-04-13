@@ -22,6 +22,7 @@ function init() {
   router.use(checkIsAuthorized);
   router.get('/', onGet);
   router.post('/', onPost);
+  router.put('/:boardid', onPut);
   router.delete('/:boardid', onDelete);
 
   app.use('/board', router);
@@ -35,6 +36,52 @@ function init() {
       return;
     }
     next();
+  }
+
+  function onPut(req, res) {
+    Board.findById(req.params.boardid, onFind);
+    function onFind(err, board) {
+      if (err) {
+        res.status(200).json({
+          status: false,
+          message: 'Error to find board',
+          err: err
+        });
+        return;
+      }
+      var body = req.body;
+      if (body.name) {
+        board.name = body.name;
+      }
+      if (body.secret) {
+        board.secret = body.secret;
+      }
+      if (body.ip) {
+        board.ip = body.ip;
+      }
+      board.save(onSave);
+
+      function onSave(err) {
+        if (err) {
+          res.status(200).json({
+            status: false,
+            message: 'Error to update board',
+            err: err
+          });
+          return;
+        }
+        res.status(200).json({
+          status: true,
+          message: 'Board has been updated.',
+          board: {
+            id: board._id,
+            name: board.name,
+            secret: board.secret,
+            ip: board.ip
+          }
+        });
+      }
+    }
   }
 
   function onDelete(req, res) {

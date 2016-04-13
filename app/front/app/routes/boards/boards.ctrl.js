@@ -32,16 +32,17 @@
       }
     }
 
-    function submitEditBoard(board) {
-      var original = angular.copy(board);
+    function submitEditBoard(boardInstance, form) {
+      var original = angular.copy(boardInstance);
       delete original.edit;
-      if (!angular.equals(original, board.edit)) {
-        board.edit(board.id, board.edit).then(onSuccess, errorGenHandler('edit board.'));
+      if (!angular.equals(original, boardInstance.edit)) {
+        board.edit(boardInstance.id, boardInstance.edit).then(onSuccess, errorGenHandler('edit board.'));
       } else {
         board.isEdit = false;
       }
 
       function onSuccess() {
+        resetForm(form, boardInstance);
         board.isEdit = false;
         loggerApi.error('Board has been edited.');
       }
@@ -104,11 +105,15 @@
       }
     }
 
-    function resetForm(form) {
+    function resetForm(form, board) {
       form.$setPristine();
       form.$setUntouched();
-      vm.newBoard = {};
-      vm.newBoardForm = false;
+      if (board) {
+        delete board.edit;
+      } else {
+        vm.newBoard = {};
+        vm.newBoardForm = false;
+      }
     }
 
     function errorGenHandler(action) {
