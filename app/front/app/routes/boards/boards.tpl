@@ -23,7 +23,7 @@
       <div ng-include="'routes/boards/partials/board.tpl'"></div>
     </div>
   </section>
-  <md-button class="md-fab md-fab-bottom-right" aria-label="Add board"
+  <md-button class="boards__add-btn md-fab md-fab-bottom-right" aria-label="Add board"
              ng-hide="vm.newBoardForm" ng-click="vm.showNewBoard(true)">
     <md-icon>add</md-icon>
   </md-button>

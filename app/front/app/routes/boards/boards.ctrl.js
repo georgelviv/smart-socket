@@ -28,6 +28,12 @@
       }
     }
 
+    function scrollTop() {
+      $('.main__content-wrapper').parent().animate({
+          scrollTop: $('.boards__top-card').offset().top
+      }, 500);
+    }
+
     function onBoardFetched() {
       vm.boards = board.getBoards();
     }
@@ -35,6 +41,7 @@
     function showNewBoard(show) {
       if (show) {
         vm.newBoardForm = true;
+        scrollTop();
       } else {
         vm.newBoardForm = false;
       }
