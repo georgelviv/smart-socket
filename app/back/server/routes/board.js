@@ -29,7 +29,8 @@ function init() {
   function checkIsAuthorized(req, res, next) {
     if (!req.isAuthenticated()) {
       res.status(200).json({
-        status: false
+        status: false,
+        message: 'Not authorized'
       });
       return;
     }

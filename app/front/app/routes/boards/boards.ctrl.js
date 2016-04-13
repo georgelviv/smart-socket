@@ -5,7 +5,7 @@
     .module('app.boards')
     .controller('BoardsCtrl', boardsCtrl);
 
-  function boardsCtrl($rootScope, $mdDialog, board, authService,
+  function boardsCtrl($rootScope, $mdDialog, $location, board, authService,
                       AUTH_EVENTS, loggerApi, BOARD_EVENTS) {
     var vm = this;
 
@@ -27,13 +27,8 @@
         if (board.getBoards()) {
           vm.boards = board.getBoards();
         } else {
-          board.get().then(null, onError);
+          board.get().then(null, errorGenHandler('get boards.'));
         }
-
-      }
-
-      function onError(error) {
-        loggerApi.error('Error to get boards.');
       }
     }
 
@@ -41,7 +36,7 @@
       var original = angular.copy(board);
       delete original.edit;
       if (!angular.equals(original, board.edit)) {
-        board.edit(board.id, board.edit).then(onSuccess, onError);
+        board.edit(board.id, board.edit).then(onSuccess, errorGenHandler('edit board.'));
       } else {
         board.isEdit = false;
       }
@@ -49,10 +44,6 @@
       function onSuccess() {
         board.isEdit = false;
         loggerApi.error('Board has been edited.');
-      }
-
-      function onError(error) {
-        loggerApi.error('Error to edit board.');
       }
     }
 
@@ -77,14 +68,11 @@
       $mdDialog.show(confirm).then(onConfirm);
 
       function onConfirm() {
-        board.remove(currentBoard.id).then(onSuccess, onError);
+        board.remove(currentBoard.id).then(onSuccess, errorGenHandler('delete board.'));
       }
 
       function onSuccess() {
         loggerApi.show('Board has been removed');
-      }
-      function onError() {
-        loggerApi.error('Error to delete board.');
       }
     }
 
@@ -108,15 +96,11 @@
     }
 
     function addBoard(form) {
-      board.add(vm.newBoard).then(onSuccess, onError);
+      board.add(vm.newBoard).then(onSuccess, errorGenHandler('add board.'));
 
       function onSuccess() {
         resetForm(form);
         loggerApi.show('Board has been successfully added.');
-      }
-
-      function onError() {
-        loggerApi.error('Error to add board.');
       }
     }
 
@@ -126,6 +110,18 @@
       vm.newBoard = {};
       vm.newBoardForm = false;
     }
+
+    function errorGenHandler(action) {
+      return function onError(error) {
+        if (error && error.message === 'Not authorized') {
+          $location.path('/login');
+          loggerApi.error('You should be authorized.');
+          return;
+        }
+        loggerApi.error('Error to ' + action);
+      };
+    }
+
   }
 
 })();

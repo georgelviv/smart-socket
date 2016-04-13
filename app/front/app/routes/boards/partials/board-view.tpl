@@ -1,5 +1,5 @@
 <div layout="row" layout-sm="column" layout-align="space-between" layout-wrap>
-  <div flex="60" flex-gt-sm="70">
+  <div flex-sm="60" flex-gt-sm="70">
     <md-card-title>
       <md-card-title-text>
         <span class="md-headline">{{board.name}}</span>

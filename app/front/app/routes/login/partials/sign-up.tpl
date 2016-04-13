@@ -42,7 +42,7 @@
     </md-input-container>
 
     <div layout="row" layout-align="end center" layout-wrap>
-      <md-button class="md-raised" type="submit"  ng-disabled="signUpForm.$invalid">
+      <md-button class="md-raised md-primary" type="submit"  ng-disabled="signUpForm.$invalid">
         Sign Up
       </md-button>
     </div>
