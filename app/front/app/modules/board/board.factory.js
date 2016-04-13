@@ -9,6 +9,7 @@
     var service = {
       get: get,
       add: add,
+      remove: remove,
       getBoards: getBoards
     };
 
@@ -18,6 +19,39 @@
 
     function getBoards() {
       return angular.copy(boards);
+    }
+
+    function remove(boardId) {
+      var deferred = $q.defer();
+
+      $http.delete(BOARD_API + '/' + boardId).success(onSuccess).error(onError);
+
+      return deferred.promise;
+
+      function onSuccess(data) {
+        if (data.status) {
+          removeById(boardId);
+          deferred.resolve(data);
+          $rootScope.$emit(BOARD_EVENTS.fetched);
+        } else {
+          deferred.reject(data);
+        }
+      }
+
+      function onError(error) {
+        deferred.reject(error);
+      }
+
+      function removeById(id) {
+        var index;
+        for (var i = 0; i < boards.length; i++) {
+          if (boards[i].id === id) {
+            index = i;
+            break;
+          }
+        }
+        boards.splice(index, 1);
+      }
     }
 
     function get() {

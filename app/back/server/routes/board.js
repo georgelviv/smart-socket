@@ -22,6 +22,7 @@ function init() {
   router.use(checkIsAuthorized);
   router.get('/', onGet);
   router.post('/', onPost);
+  router.delete('/:boardid', onDelete);
 
   app.use('/board', router);
 
@@ -35,8 +36,38 @@ function init() {
     next();
   }
 
+  function onDelete(req, res) {
+    Board.findById(req.params.boardid, onFind);
+    function onFind(err, board) {
+      if (err) {
+        res.status(200).json({
+          status: false,
+          message: 'Error to find board',
+          err: err
+        });
+        return;
+      }
+      board.remove(onRemove);
+    }
+
+    function onRemove(err) {
+      if (err) {
+        res.status(200).json({
+          status: false,
+          message: 'Error to find board',
+          err: err
+        });
+        return;
+      }
+      res.status(200).json({
+        status: true,
+        message: 'Board has been removed.'
+      });
+    }
+  }
+
   function onGet(req, res) {
-    Board.find({}, onFind);
+    Board.find({userId: req.user._id}, onFind);
 
     function onFind(err, boards) {
       if (err) {
@@ -57,7 +88,7 @@ function init() {
       });
       res.status(200).json({
         status: true,
-        boards: boards
+        boards: sendBoards
       });
     }
   }

@@ -3,6 +3,7 @@
     <md-card-title>
       <md-card-title-text>
         <span class="md-headline">{{board.name}}</span>
+        <span>{{board.id}}</span>
       </md-card-title-text>
     </md-card-title>
   </div>
@@ -11,7 +12,7 @@
       <md-button class="md-icon-button md-primary" aria-label="Edit">
           <md-icon>edit</md-icon>
       </md-button>
-      <md-button class="md-icon-button md-warn" aria-label="Delete">
+      <md-button class="md-icon-button md-warn" aria-label="Delete" ng-click="vm.confirmDelete($event, board)">
           <md-icon>delete</md-cion>
       </md-button>
     </md-card-actions>
