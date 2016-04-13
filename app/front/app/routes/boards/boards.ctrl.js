@@ -5,7 +5,7 @@
     .module('app.boards')
     .controller('BoardsCtrl', boardsCtrl);
 
-  function boardsCtrl($rootScope, board, loggerApi, BOARD_EVENTS) {
+  function boardsCtrl($rootScope, board, authService, AUTH_EVENTS, loggerApi, BOARD_EVENTS) {
     var vm = this;
 
     vm.boards = null;
@@ -15,13 +15,12 @@
 
     init();
 
+    $rootScope.$on(AUTH_EVENTS.login, init);
     $rootScope.$on(BOARD_EVENTS.fetched, onBoardFetched);
 
     function init() {
-      board.get().then(onSuccess, onError);
-
-      function onSuccess(data) {
-        vm.boards = [];
+      if (authService.isLoggedIn()) {
+        board.get().then(null, onError);
       }
 
       function onError(error) {
@@ -31,7 +30,6 @@
 
     function onBoardFetched() {
       vm.boards = board.getBoards();
-      console.log(vm.boards);
     }
 
     function showNewBoard(show) {

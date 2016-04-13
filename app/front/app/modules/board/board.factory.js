@@ -26,7 +26,13 @@
       $http.get(BOARD_API).success(onSuccess).error(onError);
 
       function onSuccess(data) {
-        deferred.resolve(data);
+        if (data.status) {
+          boards = data.boards;
+          deferred.resolve(data.boards);
+          $rootScope.$emit(BOARD_EVENTS.fetched);
+        } else {
+          deferred.reject(data);
+        }
       }
 
       function onError(error) {

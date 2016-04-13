@@ -1,10 +1,30 @@
-.board {
+.boards {
   &__top-card {
     h2 {
       margin: 5px 0 0;
     }
     p {
       margin: 10px 0 5px;
+    }
+  }
+  &__board-content {
+    p {
+      margin-bottom: 0;
+      &:last-of-type {
+        margin-bottom: 5px;
+      }
+      md-icon {
+        position: relative;
+        top: -4px;
+        margin-right: 10px;
+      }
+      &.boards__board-status {
+        md-icon {
+          font-size: 12px;
+          top: 5px;
+          text-align: center;
+        }
+      }
     }
   }
 }

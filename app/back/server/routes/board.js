@@ -36,7 +36,30 @@ function init() {
   }
 
   function onGet(req, res) {
-    res.send('1');
+    Board.find({}, onFind);
+
+    function onFind(err, boards) {
+      if (err) {
+        res.status(200).json({
+          status: false,
+          message: 'Error to get boards',
+          err: err
+        });
+        return;
+      }
+      var sendBoards = boards.map(function (item) {
+        return {
+          id: item._id,
+          name: item.name,
+          secret: item.secret,
+          ip: item.ip
+        };
+      });
+      res.status(200).json({
+        status: true,
+        boards: boards
+      });
+    }
   }
 
   function onPost(req, res) {
@@ -62,7 +85,8 @@ function init() {
       if (err) {
         res.status(200).json({
           status: false,
-          message: 'Error to save board'
+          message: 'Error to save board',
+          err: err
         });
         return;
       }
