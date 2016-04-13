@@ -25,7 +25,7 @@
         <span>
           Not connected
         </span>
-        <md-button class="md-icon-button">
+        <md-button class="md-icon-button" ng-click="vm.getStatus(board)">
           <md-icon>autorenew</md-icon>
         </md-button>
       </p>

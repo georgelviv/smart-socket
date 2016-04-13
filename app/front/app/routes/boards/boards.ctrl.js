@@ -16,6 +16,7 @@
     vm.addBoard = addBoard;
     vm.editBoard = editBoard;
     vm.submitEditBoard = submitEditBoard;
+    vm.getStatus = getStatus;
 
     init();
 
@@ -29,6 +30,14 @@
         } else {
           board.get().then(null, errorGenHandler('get boards.'));
         }
+      }
+    }
+
+    function getStatus(boardInstance) {
+      board.checkStatus(boardInstance.id).then(onSuccess, errorGenHandler('check board status.'));
+
+      function onSuccess(data) {
+
       }
     }
 

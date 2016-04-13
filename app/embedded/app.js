@@ -29,6 +29,8 @@ function createServer() {
       } else {
         res.end('no api for current request');
       }
+    } else if (urlObj.url === 'status') {
+      res.end('connected');
     } else {
       res.end('no api for current request');
     }

@@ -11,12 +11,31 @@
       add: add,
       remove: remove,
       edit: edit,
-      getBoards: getBoards
+      getBoards: getBoards,
+      checkStatus: checkStatus
     };
 
     var boards = null;
 
     return service;
+
+    function checkStatus(boardId) {
+      var deferred = $q.defer();
+
+      $http.get(BOARD_API + '/' + boardId + '/status').success(onSuccess).error(onError);
+
+      return deferred.promise;
+
+      function onSuccess(data) {
+        console.log(data);
+        deferred.resolve(data);
+      }
+
+      function onError(error) {
+        console.log(error);
+        deferred.reject(error);
+      }
+    }
 
     function getBoards() {
       return angular.copy(boards);

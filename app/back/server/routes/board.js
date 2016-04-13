@@ -3,6 +3,7 @@
 let express = require('express');
 let serverModule = require('../index');
 let dbModule = require('../../db');
+let boardModule = require('../../board');
 let isInited = false;
 
 module.exports.init = init;
@@ -21,6 +22,7 @@ function init() {
 
   router.use(checkIsAuthorized);
   router.get('/', onGet);
+  router.get('/:boardid/status', onGetStatus);
   router.post('/', onPost);
   router.put('/:boardid', onPut);
   router.delete('/:boardid', onDelete);
@@ -36,6 +38,35 @@ function init() {
       return;
     }
     next();
+  }
+
+  function onGetStatus(req, res) {
+    Board.findById(req.params.boardid, onFind);
+    function onFind(err, board) {
+      if (err) {
+        res.status(200).json({
+          status: false,
+          message: 'Error to find board',
+          err: err
+        });
+        return;
+      }
+      boardModule.getStatus(board, onGet);
+    }
+
+    function onGet(err, data) {
+      if (err) {
+        res.status(200).json({
+          status: false,
+          message: 'Error to get status board',
+          err: err
+        });
+        return;
+      }
+      res.status(200).json({
+        status: true
+      });
+    }
   }
 
   function onPut(req, res) {
