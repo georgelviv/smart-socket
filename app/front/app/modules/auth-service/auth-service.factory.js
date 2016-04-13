@@ -33,7 +33,7 @@
         return deferred.promise;
 
         function onSuccess(data, status) {
-          if (status === 200 && data.status) {
+          if (status === 200 && data && data.status) {
             user = data.user;
             deferred.resolve(data.user);
             $rootScope.$emit(AUTH_EVENTS.login);
@@ -77,7 +77,7 @@
         return deffered.promise;
 
         function onSuccess(data, status) {
-          if (status === 200 && data.status) {
+          if (status === 200 && data && data.status) {
             user = data.user;
             deffered.resolve(data.user);
             $rootScope.$emit(AUTH_EVENTS.login);

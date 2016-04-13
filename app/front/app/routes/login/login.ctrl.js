@@ -41,7 +41,7 @@
       }
 
       function onLoginFail(error) {
-        if (error.data === 'Unauthorized' || error === 'Unauthorized') {
+        if (error && error.data === 'Unauthorized' || error === 'Unauthorized') {
           loggerApi.error('Wrong username or password');
           return;
         }

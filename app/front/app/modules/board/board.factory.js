@@ -10,6 +10,7 @@
       get: get,
       add: add,
       remove: remove,
+      edit: edit,
       getBoards: getBoards
     };
 
@@ -51,6 +52,27 @@
           }
         }
         boards.splice(index, 1);
+      }
+    }
+
+    function edit(boardId, editBoard) {
+      var deferred = $q.defer();
+
+      $http.put(BOARD_API + '/' + boardId).success(onSuccess).error(onError);
+
+      return deferred.promise;
+
+      function onSuccess(data) {
+        if (data.status) {
+          deferred.resolve(data);
+          $rootScope.$emit(BOARD_EVENTS.fetched);
+        } else {
+          deferred.reject(data);
+        }
+      }
+
+      function onError(error) {
+        deferred.reject(error);
       }
     }
 

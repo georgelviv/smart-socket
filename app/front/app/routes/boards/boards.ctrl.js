@@ -14,6 +14,8 @@
     vm.showNewBoard = showNewBoard;
     vm.confirmDelete = confirmDelete;
     vm.addBoard = addBoard;
+    vm.editBoard = editBoard;
+    vm.submitEditBoard = submitEditBoard;
 
     init();
 
@@ -32,6 +34,36 @@
 
       function onError(error) {
         loggerApi.error('Error to get boards.');
+      }
+    }
+
+    function submitEditBoard(board) {
+      var original = angular.copy(board);
+      delete original.edit;
+      if (!angular.equals(original, board.edit)) {
+        board.edit(board.id, board.edit).then(onSuccess, onError);
+      } else {
+        board.isEdit = false;
+      }
+
+      function onSuccess() {
+        board.isEdit = false;
+        loggerApi.error('Board has been edited.');
+      }
+
+      function onError(error) {
+        loggerApi.error('Error to edit board.');
+      }
+    }
+
+    function editBoard(board, setEdit) {
+      if (setEdit) {
+        board.isEdit = true;
+        if (!board.edit) {
+          board.edit = angular.copy(board);
+        }
+      } else {
+        board.isEdit = false;
       }
     }
 
