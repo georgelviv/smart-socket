@@ -20,7 +20,7 @@
     <md-input-container class="md-block">
       <label>IP address</label>
       <input name="ip" type="text" ng-model="vm.newBoard.ip" required
-             pattern="^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)$">
+             pattern="^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)(:\d{1,6})?$">
       <div ng-messages="newBoard.ip.$error">
         <div ng-message="required">IP address is required.</div>
         <div ng-message="pattern">IP address should be correct.</div>
