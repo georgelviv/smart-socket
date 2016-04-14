@@ -15,7 +15,8 @@
       'app.login',
       'app.sidebar',
       'app.dashboard',
-      'app.boards'
+      'app.boards',
+      'app.gpio'
     ]);
 
 })();

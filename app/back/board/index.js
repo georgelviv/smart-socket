@@ -14,12 +14,12 @@ function get(board, gpioId, cb) {
     console.log('To get gpio, pass gpioID');
     return;
   }
-  var reqUrl = 'http://' + board.ip + ':3000/gpio/' + gpioId + '?method=get';
+  var reqUrl = 'http://' + board.ip + '/gpio/' + gpioId + '?method=get';
   request(getReqObj(board, reqUrl), onResponse.bind(this, cb));
 }
 
 function getStatus(board, cb) {
-  var reqUrl = 'http://' +board.ip + ':3000/status';
+  var reqUrl = 'http://' +board.ip + '/status';
   request(getReqObj(board, reqUrl), onResponse.bind(this, cb));
 }
 
@@ -28,7 +28,7 @@ function set(board, gpioId, value, cb) {
     console.log('To set gpio, pass gpioID and value');
     return;
   }
-  var reqUrl = 'http://' + board.ip + ':3000/gpio/' + gpioId + '?method=set&value=' + value;
+  var reqUrl = 'http://' + board.ip + '/gpio/' + gpioId + '?method=set&value=' + value;
 
   request(getReqObj(board, reqUrl), onResponse.bind(this, cb));
 }
@@ -49,6 +49,10 @@ function onResponse(cb, error, response, body) {
     return;
   }
   if (cb) {
-    cb(null, body);
+    if (body === 'wrong secret') {
+      cb(body);
+    } else {
+      cb(null, body);
+    }
   }
 }

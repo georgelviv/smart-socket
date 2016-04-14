@@ -15,6 +15,12 @@
         icon: 'select_all',
         title: 'Boards',
         name: 'boards'
+      },
+      {
+        url: '/#/gpio',
+        icon: 'settings_input_composite',
+        title: 'Gpio',
+        name: 'gpio'
       }
     ]);
 

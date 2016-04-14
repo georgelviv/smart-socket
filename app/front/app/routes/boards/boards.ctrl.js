@@ -43,7 +43,7 @@
           } else {
             boardInstance.connected = false;
           }
-          if (data.message === 'wrong secret') {
+          if (data.err === 'wrong secret') {
             loggerApi.error('Wrong secret key.');
           }
         }

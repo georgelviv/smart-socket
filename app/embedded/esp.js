@@ -4,6 +4,12 @@ function onInit() {
 
   var app = {};
 
+  function setOutput() {
+    for (var i = 0; i <= 10; i++) {
+      NodeMCU.D0
+    }
+  }
+
   function parsePath(url) {
     var obj = {};
     var tempArray = url.split('/');
@@ -37,12 +43,12 @@ function onInit() {
       }
       var urlObj = parsePath(url.parse(req.url).path);
       if (urlObj.url === 'gpio') {
+        pinMode(NodeMCU['D' + urlObj.id], 'output');
         if (urlObj.method === 'get') {
-          res.end(GPIO.read(urlObj.id));
+          res.end(NodeMCU['D' + urlObj.id].read());
         } else if (urlObj.method === 'set') {
-          GPIO.setmode(urlObj.id, 0, 0);
-          GPIO.write(urlObj.id, urlObj.value);
-          res.end(GPIO.read(urlObj.id));
+          NodeMCU['D' + urlObj.id].write(urlObj.value);
+          res.end(NodeMCU['D' + urlObj.id].read());
         } else {
           res.end('no api for current request');
         }

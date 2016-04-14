@@ -30,7 +30,6 @@ function init() {
   serverModule.server = app.listen(nconf.get('PORT'), onListen);
 
   function onListen() {
-    let socket = require('./socket').init();
     console.log('Listen on port:' + serverModule.server.address().port);
   }
 }

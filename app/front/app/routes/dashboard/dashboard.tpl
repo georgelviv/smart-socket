@@ -7,5 +7,4 @@
       </p>
     </md-card-title-text>
   </md-card>
-  <gpio-list></gpio-list>
 </section>
