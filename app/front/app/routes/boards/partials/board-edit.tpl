@@ -9,7 +9,7 @@
       <label>Board Name</label>
       <input name="name" type="text" ng-model="board.edit.name" required
              minlength="3" md-maxlength="30">
-      <div ng-messages="editBoard.name.$error">
+      <div ng-messages="editBoardForm.name.$error">
         <div ng-message="required">Board name is required.</div>
         <div ng-message="minlength">Minimum length is 3 symbols.</div>
         <div ng-message="md-maxlength">Maximum length is 30 symbols.</div>
@@ -19,8 +19,8 @@
     <md-input-container class="md-block">
       <label>IP address</label>
       <input name="ip" type="text" ng-model="board.edit.ip" required
-             pattern="^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)$">
-      <div ng-messages="editBoard.ip.$error">
+             pattern="^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)(:\d{1,6})?$">
+      <div ng-messages="editBoardForm.ip.$error">
         <div ng-message="required">IP address is required.</div>
         <div ng-message="pattern">IP address should be correct.</div>
       </div>
@@ -29,7 +29,7 @@
       <label>Secret key</label>
       <input name="secret" type="text" ng-model="board.edit.secret" required
              minlength="4" md-maxlength="30">
-      <div ng-messages="editBoard.ip.$error">
+      <div ng-messages="editBoardForm.ip.$error">
         <div ng-message="required">Secret key is required.</div>
         <div ng-message="minlength">Minimum length is 3 symbols.</div>
         <div ng-message="md-maxlength">Maximum length is 30 symbols.</div>

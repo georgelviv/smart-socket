@@ -20,10 +20,14 @@
   </div>
   <div flex="100">
     <md-card-content class="boards__board-content md-body-1" layout="column" layout-align="start stretch">
-      <p class="boards__board-status" flex="100">
+      <p class="boards__board-status" flex="100"
+         ng-class="{'boards__board-status--connected': board.connected}">
         <md-icon class="boards__board-status-icon" aria-label="Status">lens</md-icon>
-        <span>
+        <span ng-hide="board.connected">
           Not connected
+        </span>
+        <span ng-show="board.connected">
+          Connected
         </span>
         <md-button class="md-icon-button" ng-click="vm.getStatus(board)">
           <md-icon>autorenew</md-icon>

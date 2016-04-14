@@ -27,13 +27,11 @@
       return deferred.promise;
 
       function onSuccess(data) {
-        console.log(data);
         deferred.resolve(data);
       }
 
       function onError(error) {
-        console.log(error);
-        deferred.reject(error);
+        deferred.resolve(error);
       }
     }
 

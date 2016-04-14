@@ -37,23 +37,33 @@
       board.checkStatus(boardInstance.id).then(onSuccess, errorGenHandler('check board status.'));
 
       function onSuccess(data) {
-
+        if (data) {
+          if (data.status !== undefined) {
+            boardInstance.connected = data.status;
+          } else {
+            boardInstance.connected = false;
+          }
+          if (data.message === 'wrong secret') {
+            loggerApi.error('Wrong secret key.');
+          }
+        }
       }
     }
 
     function submitEditBoard(boardInstance, form) {
       var original = angular.copy(boardInstance);
       delete original.edit;
+      delete original.connected;
       if (!angular.equals(original, boardInstance.edit)) {
         board.edit(boardInstance.id, boardInstance.edit).then(onSuccess, errorGenHandler('edit board.'));
       } else {
-        board.isEdit = false;
+        boardInstance.isEdit = false;
       }
 
       function onSuccess() {
         resetForm(form, boardInstance);
-        board.isEdit = false;
-        loggerApi.error('Board has been edited.');
+        boardInstance.isEdit = false;
+        loggerApi.show('Board has been edited.');
       }
     }
 

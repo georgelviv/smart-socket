@@ -15,13 +15,12 @@ function get(board, gpioId, cb) {
     return;
   }
   var reqUrl = 'http://' + board.ip + ':3000/gpio/' + gpioId + '?method=get';
-  request(reqUrl, onResponse.bind(this, cb));
+  request(getReqObj(board, reqUrl), onResponse.bind(this, cb));
 }
 
 function getStatus(board, cb) {
-  console.log(board.ip);
   var reqUrl = 'http://' +board.ip + ':3000/status';
-  request(reqUrl, onResponse.bind(this, cb));
+  request(getReqObj(board, reqUrl), onResponse.bind(this, cb));
 }
 
 function set(board, gpioId, value, cb) {
@@ -30,7 +29,18 @@ function set(board, gpioId, value, cb) {
     return;
   }
   var reqUrl = 'http://' + board.ip + ':3000/gpio/' + gpioId + '?method=set&value=' + value;
-  request(reqUrl, onResponse.bind(this, cb));
+
+  request(getReqObj(board, reqUrl), onResponse.bind(this, cb));
+}
+
+function getReqObj(board, url) {
+  return {
+    url: url,
+    timeout: 10000,
+    headers: {
+      'secret': board.secret
+    }
+  }
 }
 
 function onResponse(cb, error, response, body) {

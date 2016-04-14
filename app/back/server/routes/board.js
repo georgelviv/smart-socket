@@ -63,9 +63,17 @@ function init() {
         });
         return;
       }
-      res.status(200).json({
-        status: true
-      });
+      if (data === 'wrong secret') {
+        res.status(200).json({
+          status: false,
+          message: data
+        });
+      } else {
+        res.status(200).json({
+          status: true,
+          data: data
+        });
+      }
     }
   }
 
@@ -87,7 +95,7 @@ function init() {
       if (body.secret) {
         board.secret = body.secret;
       }
-      if (body.ip) {
+      if (body.ip && checkIP(body.ip)) {
         board.ip = body.ip;
       }
       board.save(onSave);
@@ -213,14 +221,18 @@ function init() {
   }
 
   function checkBody(body) {
-    var ipRegex = /^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)$/;
     if (!body.name || !body.secret || !body.ip) {
       return false;
     }
-    if (!ipRegex.test(body.ip)) {
+    if (checkIP(body.ip)) {
       return false;
     }
     return true;
+  }
+
+  function checkIP(ip) {
+    var ipRegex = /^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)(:\d{1,6})?$/;
+    return ipRegex.test(ip);
   }
 
 }

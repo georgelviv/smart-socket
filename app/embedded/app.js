@@ -17,6 +17,10 @@ Wifi.changed(function () {
 
 function createServer() {
   app.server = Http.createServer(function(req, res) {
+    if (req.headers.secret !== 'secret-key') {
+      res.end('wrong secret');
+      return;
+    }
     var urlObj = parseUrl(req.url);
     console.log(urlObj);
     if (urlObj.url === 'gpio') {
@@ -39,7 +43,9 @@ function createServer() {
 
 function parseUrl(url) {
   var obj = {};
+  url = url.replace(/^http(s)?:\/\//, '');
   var tempArray = url.split('/');
+  console.log(tempArray);
   obj.url = tempArray[1];
   if (tempArray[2]) {
     tempArray = tempArray[2].split('?');
@@ -60,10 +66,4 @@ function parseUrl(url) {
     }
   }
   return obj;
-}
-
-function changePinLevel(pin) {
-  var level = GPIO.read(pin);
-  GPIO.setmode(pin, 0, 0);
-
 }
