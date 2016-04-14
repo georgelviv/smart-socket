@@ -224,7 +224,7 @@ function init() {
     if (!body.name || !body.secret || !body.ip) {
       return false;
     }
-    if (checkIP(body.ip)) {
+    if (!checkIP(body.ip)) {
       return false;
     }
     return true;
