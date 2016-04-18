@@ -17,6 +17,12 @@
           </md-select>
         </md-input-container>
       </div>
+      <div ng-show="vm.boards.length === 0">
+        Currently you don't have any boardі. Please add using
+        <a href="/#/boards">
+          board manager.
+        </a>
+      </div>
     </md-card-title-text>
   </md-card>
 

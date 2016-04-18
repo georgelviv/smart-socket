@@ -3,60 +3,61 @@
 
   angular
     .module('app.header-toolbar')
+    .controller('HeaderToolbarCtrl', HeaderToolbarCtrl)
     .directive('headerToolbar', headerToolbarDirective);
 
-  function headerToolbarDirective($rootScope, $mdDialog, $location,
-                                  $route, authService, AUTH_EVENTS, sidebarApi) {
+  function headerToolbarDirective() {
     var directive = {
-      link: link,
-      controllerAs: 'vm',
+      controller: 'HeaderToolbarCtrl',
+      controllerAs: 'headerToolbar',
       templateUrl: 'directives/header-toolbar/header-toolbar.tpl',
       restrict: 'E',
-      scope: {
-      }
+      scope: {}
     };
 
     return directive;
+  }
 
-    function link(scope) {
-      scope.isLogged = authService.isLoggedIn();
-      scope.showConfirm = showConfirm;
-      scope.toggleSidebar = toggleSidebar;
+  function HeaderToolbarCtrl($rootScope, $mdDialog, $location,
+                             $route, authService, AUTH_EVENTS, sidebarApi) {
+    var headerToolbar = this;
+    headerToolbar.isLogged = authService.isLoggedIn();
+    headerToolbar.showConfirm = showConfirm;
+    headerToolbar.toggleSidebar = toggleSidebar;
 
-      $rootScope.$on(AUTH_EVENTS.login, onLogin);
-      $rootScope.$on(AUTH_EVENTS.logout, onLogout);
+    $rootScope.$on(AUTH_EVENTS.login, onLogin);
+    $rootScope.$on(AUTH_EVENTS.logout, onLogout);
 
-      function toggleSidebar() {
-        sidebarApi.toggle();
-      }
+    function toggleSidebar() {
+      sidebarApi.toggle();
+    }
 
-      function onLogin() {
-        scope.isLogged = true;
-      }
+    function onLogin() {
+      headerToolbar.isLogged = true;
+    }
 
-      function onLogout() {
-        scope.isLogged = false;
-      }
+    function onLogout() {
+      headerToolbar.isLogged = false;
+    }
 
-      function showConfirm(ev) {
-        var confirm = $mdDialog.confirm()
-              .title('Would you like to logout?')
-              .targetEvent(ev)
-              .ok('Logout')
-              .cancel('Cancel');
-        $mdDialog.show(confirm).then(onConfirm);
+    function showConfirm(ev) {
+      var confirm = $mdDialog.confirm()
+            .title('Would you like to logout?')
+            .targetEvent(ev)
+            .ok('Logout')
+            .cancel('Cancel');
+      $mdDialog.show(confirm).then(onConfirm);
 
-        function onConfirm() {
-          authService.logout().then(onCb, onCb);
+      function onConfirm() {
+        authService.logout().then(onCb, onCb);
 
-          function onCb() {
-            $location.path('/');
-            $route.reload();
-          }
+        function onCb() {
+          $location.path('/');
+          $route.reload();
         }
+      }
     }
 
-    }
   }
 
 })();

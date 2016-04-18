@@ -3,9 +3,9 @@
 
   angular
     .module('app.boards')
-    .controller('BoardsCtrl', boardsCtrl);
+    .controller('BoardsCtrl', BoardsCtrl);
 
-  function boardsCtrl($rootScope, $mdDialog, $location, board, authService,
+  function BoardsCtrl($rootScope, $mdDialog, $location, board, authService,
                       AUTH_EVENTS, loggerApi, BOARD_EVENTS) {
     var vm = this;
 

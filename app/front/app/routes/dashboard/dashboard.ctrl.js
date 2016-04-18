@@ -3,9 +3,9 @@
 
   angular
     .module('app.dashboard')
-    .controller('DashboardCtrl', dashboardCtrl);
+    .controller('DashboardCtrl', DashboardCtrl);
 
-  function dashboardCtrl($rootScope, AUTH_EVENTS, authService, loggerApi) {
+  function DashboardCtrl($rootScope, AUTH_EVENTS, authService, loggerApi) {
     var vm = this;
 
     vm.username = null;

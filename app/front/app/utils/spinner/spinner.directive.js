@@ -3,31 +3,33 @@
 
   angular
     .module('utils.spinner')
+    .controller('SpinnerCtrl', SpinnerCtrl)
     .directive('spinner', spinner);
 
-  function spinner($rootScope) {
+  function spinner() {
     var directive = {
       templateUrl: 'utils/spinner/spinner.tpl',
       restrict: 'E',
       scope: {},
-      controllerAs: 'vm',
-      link: link
+      controller: 'SpinnerCtrl',
+      controllerAs: 'spinner'
     };
 
     return directive;
+  }
 
-    function link(scope) {
-      scope.isShowed = false;
-      $rootScope.$on('utils.spinner:hide', onHide);
-      $rootScope.$on('utils.spinner:show', onShow);
+  function SpinnerCtrl($rootScope) {
+    var spinner = this;
+    spinner.isShowed = false;
+    $rootScope.$on('utils.spinner:hide', onHide);
+    $rootScope.$on('utils.spinner:show', onShow);
 
-      function onHide() {
-        scope.isShowed = false;
-      }
+    function onHide() {
+      spinner.isShowed = false;
+    }
 
-      function onShow() {
-        scope.isShowed = true;
-      }
+    function onShow() {
+      spinner.isShowed = true;
     }
   }
 

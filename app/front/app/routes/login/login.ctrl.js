@@ -17,9 +17,9 @@
     function onSignUpSubmit() {
       authService.register(vm.forms.signUp).then(onRegisterSuccess, onRegisterError);
 
-      function onRegisterSuccess(data) {
+      function onRegisterSuccess(user) {
         $location.path('/dashboard');
-        loggerApi.show('Welcome aboard, ' + data.user.username + ' !');
+        loggerApi.show('Welcome aboard, ' + user.username + ' !');
       }
 
       function onRegisterError(error) {

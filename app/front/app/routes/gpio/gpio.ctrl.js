@@ -3,12 +3,12 @@
 
   angular
     .module('app.gpio')
-    .controller('GpioCtrl', gpioCtrl);
+    .controller('GpioCtrl', GpioCtrl);
 
-  function gpioCtrl($rootScope, $location, gpioService, GPIO_ARRAY, board, loggerApi, BOARD_EVENTS) {
+  function GpioCtrl($rootScope, $location, gpioService, GPIO_ARRAY, board, loggerApi, BOARD_EVENTS) {
     var vm = this;
     vm.boards = null;
-    vm.gpioArray = [];
+    vm.gpioArray = null;
     vm.updateStatus = updateStatus;
     vm.changeStatus = changeStatus;
     init();

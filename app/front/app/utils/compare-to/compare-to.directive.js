@@ -16,17 +16,17 @@
     };
 
     return directive;
+  }
 
-    function link(scope, element, attr, ngModel) {
-      ngModel.$validators.compareTo = compareToValidator;
+  function link(scope, element, attr, ngModel) {
+    ngModel.$validators.compareTo = compareToValidator;
 
-      scope.$watch('otherModelValue', function () {
-        ngModel.$validate();
-      });
+    scope.$watch('otherModelValue', function () {
+      ngModel.$validate();
+    });
 
-      function compareToValidator (modelValue) {
-        return modelValue === scope.otherModelValue;
-      }
+    function compareToValidator (modelValue) {
+      return modelValue === scope.otherModelValue;
     }
   }
 

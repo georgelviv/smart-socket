@@ -3,9 +3,9 @@
 
   angular
     .module('app.main')
-    .controller('MainCtrl', mainController);
+    .controller('MainCtrl', MainController);
 
-  function mainController() {
+  function MainController() {
     var vm = this;
 
   }

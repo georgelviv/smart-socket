@@ -24,10 +24,7 @@ function init() {
       type: String,
       required: true
     },
-    password: {
-      type: String,
-      required: true
-    },
+    password: String,
     email: String,
     role: {
       type: String,
