@@ -1,9 +1,9 @@
 'use strict';
 
-let serverModule = require('../index');
-let authRouteModule = require('./auth');
-let boardRouteModule = require('./board');
-let gpioRouteModule = require('./gpio');
+const serverModule = require('../index');
+const authRouteModule = require('./auth');
+const boardRouteModule = require('./board');
+const gpioRouteModule = require('./gpio');
 let isInited = false;
 
 module.exports.init = init;

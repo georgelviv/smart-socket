@@ -1,10 +1,10 @@
 'use strict';
 
-let passport = require('passport');
-let express = require('express');
-let LocalStrategy = require('passport-local').Strategy;
-let serverModule = require('../index');
-let dbModule = require('../../db');
+const passport = require('passport');
+const express = require('express');
+const LocalStrategy = require('passport-local').Strategy;
+const serverModule = require('../index');
+const dbModule = require('../../db');
 let isInited = false;
 
 module.exports.init = init;

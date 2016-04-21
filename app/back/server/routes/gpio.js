@@ -1,9 +1,9 @@
 'use strict';
 
-let express = require('express');
-let serverModule = require('../index');
-let dbModule = require('../../db');
-let boardModule = require('../../board');
+const express = require('express');
+const serverModule = require('../index');
+const dbModule = require('../../db');
+const boardModule = require('../../board');
 let isInited = false;
 
 module.exports.init = init;

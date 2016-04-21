@@ -1,8 +1,8 @@
 'use strict';
 
-let express = require('express');
-let nconf = require('nconf');
-let middlewares = require('./middlewares');
+const express = require('express');
+const nconf = require('nconf');
+const middlewares = require('./middlewares');
 
 let isInited = false;
 let serverModule = {

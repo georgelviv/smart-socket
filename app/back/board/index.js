@@ -1,5 +1,5 @@
 'use strict';
-let request = require('request');
+const mqttModule = require('../mqtt');
 
 let espModule = {
   set: set,
@@ -14,8 +14,11 @@ function get(board, gpioId, cb) {
     console.log('To get gpio, pass gpioID');
     return;
   }
-  var reqUrl = 'http://' + board.ip + '/gpio/' + gpioId + '?method=get';
-  request(getReqObj(board, reqUrl), onResponse.bind(this, cb));
+  mqttModule.publish({
+    method: 'get',
+    gpioId: gpioId
+  });
+  mqttModule.subscribe(onResponse.bind(this, cb));
 }
 
 function getStatus(board, cb) {
