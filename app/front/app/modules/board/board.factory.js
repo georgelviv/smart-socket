@@ -65,8 +65,9 @@
       var deferred = $q.defer();
       var body = {
         name: editBoard.name,
-        ip: editBoard.ip,
-        secret: editBoard.secret
+        broker: editBoard.broker,
+        secret: editBoard.secret,
+        nameValue: editBoard.nameValue
       };
 
       $http.put(BOARD_API + '/' + boardId, body).success(onSuccess).error(onError);
@@ -114,8 +115,9 @@
       var deferred = $q.defer();
       var body = {
         name: newBoard.name,
-        ip: newBoard.ip,
-        secret: newBoard.secret
+        broker: newBoard.broker,
+        secret: newBoard.secret,
+        nameValue: newBoard.nameValue
       };
 
       $http.post(BOARD_API, body).success(onSuccess).error(onError);

@@ -18,12 +18,21 @@
     </md-input-container>
 
     <md-input-container class="md-block">
-      <label>IP address</label>
-      <input name="ip" type="text" ng-model="vm.newBoard.ip" required
-             pattern="^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)(:\d{1,6})?$">
-      <div ng-messages="newBoard.ip.$error">
-        <div ng-message="required">IP address is required.</div>
-        <div ng-message="pattern">IP address should be correct.</div>
+      <label>Broker address</label>
+      <input name="broker" type="text" ng-model="vm.newBoard.broker" required
+             minlength="5">
+      <div ng-messages="newBoard.broker.$error">
+        <div ng-message="required">Broker address is required.</div>
+        <div ng-message="minlength">Minimum length is 3 symbols.</div>
+      </div>
+    </md-input-container>
+    <md-input-container class="md-block">
+      <label>Board name value</label>
+      <input name="broker" type="text" ng-model="vm.newBoard.nameValue" required
+             minlength="5">
+      <div ng-messages="newBoard.nameValue.$error">
+        <div ng-message="required">Board name value is required.</div>
+        <div ng-message="minlength">Minimum length is 3 symbols.</div>
       </div>
     </md-input-container>
     <md-input-container class="md-block">

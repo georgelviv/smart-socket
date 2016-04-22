@@ -20,8 +20,9 @@ function init() {
 
   let Board = new Schema({
     name: String,
-    ip: String,
+    broker: String,
     secret: String,
+    nameValue: String,
     userId: String
   });
 

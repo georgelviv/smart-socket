@@ -5,6 +5,5 @@
     "front": "app/front"
   },
   "PORT": "3000",
-  "mongodb": "mongodb://<dbcredentilas>@ds013270.mlab.com:13270/smart-socket",
-  "mqttBroker": "test.mosquitto.org"
+  "mongodb": "mongodb://<dbcredentilas>@ds013270.mlab.com:13270/smart-socket"
 }

@@ -1,4 +1,5 @@
 'use strict';
+
 const mqttModule = require('../mqtt');
 
 let espModule = {
@@ -14,16 +15,25 @@ function get(board, gpioId, cb) {
     console.log('To get gpio, pass gpioID');
     return;
   }
+
   mqttModule.publish({
+    broker: board.broker,
+    nameValue: board.nameValue
+  }, {
     method: 'get',
-    gpioId: gpioId
-  });
-  mqttModule.subscribe(onResponse.bind(this, cb));
+    gpioId: gpioId,
+    secret: board.secret
+  }, onResponse.bind(this, cb));
 }
 
 function getStatus(board, cb) {
-  var reqUrl = 'http://' +board.ip + '/status';
-  request(getReqObj(board, reqUrl), onResponse.bind(this, cb));
+  mqttModule.publish({
+    broker: board.broker,
+    nameValue: board.nameValue
+  }, {
+    method: 'status',
+    secret: board.secret
+  }, onResponse.bind(this, cb));
 }
 
 function set(board, gpioId, value, cb) {
@@ -31,22 +41,18 @@ function set(board, gpioId, value, cb) {
     console.log('To set gpio, pass gpioID and value');
     return;
   }
-  var reqUrl = 'http://' + board.ip + '/gpio/' + gpioId + '?method=set&value=' + value;
-
-  request(getReqObj(board, reqUrl), onResponse.bind(this, cb));
+  mqttModule.publish({
+    broker: board.broker,
+    nameValue: board.nameValue
+  }, {
+    method: 'set',
+    gpioId: gpioId,
+    value: value,
+    secret: board.secret
+  }, onResponse.bind(this, cb));
 }
 
-function getReqObj(board, url) {
-  return {
-    url: url,
-    timeout: 10000,
-    headers: {
-      'secret': board.secret
-    }
-  }
-}
-
-function onResponse(cb, error, response, body) {
+function onResponse(cb, error, body) {
   if (error) {
     cb(error);
     return;

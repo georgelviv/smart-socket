@@ -1,51 +1,118 @@
 'use strict';
 
 const mqtt = require('mqtt');
-const nconf = require('nconf');
+const uuid = require('uuid');
 
-let isInited = false;
 let mqttModule = {
-  topicName: 'smart-socket.app',
-  init: init,
-  subscribeOn: subscribeOn,
-  publish: publish
+  maxage: 10 * 60 * 1000,
+  reqTimeout: 10 * 1000,
+  serverTopic: 'smartsocket',
+  publish: publish,
+  connections: []
 };
 
 module.exports = mqttModule;
 
-function init() {
-  if (isInited) {
-    console.log('MQTT module is already inited!');
-    return;
+function publish(board, obj, cb) {
+  var mqttClient = findConnect(board.broker);
+  if (!mqttClient) {
+    mqttClient = new MqttClient(board.broker, onConnect);
+  } else {
+    mqttClient.publishMsg(board.nameValue, obj, cb);
   }
-  isInited = true;
-  mqttModule.client = mqtt.connect(nconf.get('mqttBroker'));
-  let client = mqttModule.client;
 
+  function onConnect() {
+    mqttClient.publishMsg(board.nameValue, obj, cb);
+  }
+}
+
+function MqttClient(broker, onConnectCb) {
+  var indexInConnections = mqttModule.connections.length;
+  this.broker = broker;
+  this.publishMsg = publishMsg;
+  this.client = mqtt.connect(broker);
+
+  var client = this.client;
+  var cbList = [];
+
+  mqttModule.connections.push(this);
   client.on('connect', onConnect);
   client.on('message', onMessage);
 
+  var removeConnectDbncFn = debounce(removeConnect, mqttModule.maxage);
+  removeConnectDbncFn();
+
+  function publishMsg(topic, msgObj, cb) {
+    msgObj.uuid = uuid.v1();
+    client.publish(mqttModule.serverTopic + '/' + topic, JSON.stringify(msgObj));
+    cbList.push({
+      uuid: msgObj.uuid,
+      cb: cb
+    });
+    removeConnectDbncFn();
+    setTimeout(function () {
+      timeout(cbList.length - 1);
+    }, mqttModule.reqTimeout);
+  }
+
+  function timeout(index) {
+    var cb = cbList[index].cb;
+    cbList.splice(index, 1);
+    if (cb) {
+      cb('timeout');
+    }
+  }
+
   function onConnect() {
-    client.subscribe(mqttModule.topicName);
+    client.subscribe(mqttModule.serverTopic);
+    if (onConnectCb) {
+      onConnectCb();
+    }
   }
 
   function onMessage(topic, message) {
-    message = message.toString();
-    let obj = JSON.parse(message);
-    mqttModule.sub[obj.topic].forEach(function (cb) {
-      cb(obj);
+    var messageObj = JSON.parse(message.toString());
+    var indexCbObj = -1;
+    cbList.forEach(function (item, index) {
+      if (messageObj.uuid === item.uuid) {
+        indexCbObj = index;
+      }
     });
+    var cbObj = cbList[indexCbObj];
+    delete messageObj.uuid;
+    if (cbObj && cbObj.cb) {
+      cbList.splice(indexCbObj, 1);
+      cbObj.cb(null, messageObj);
+    }
+  }
+
+  function removeConnect() {
+    client.end();
+    mqttModule.connections.splice(indexInConnections, 1);
   }
 }
 
-function publish(obj) {
-  if (mqttModule.client) {
-    mqttModule.client.publish(mqttModule.topicName, JSON.stringify(obj));
-  }
+function findConnect(broker) {
+  return mqttModule.connections.filter(function (item) {
+    return item.broker === broker;
+  })[0];
 }
 
-function subscribeOn(topic, cb) {
-  mqttModule.sub = mqttModule.sub || {};
-  mqttModule.sub[topic] = mqttModule.sub[topic] || [];
-  mqttModule.sub[topic].push(cb);
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) {
+        func.apply(context, args);
+      }
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) {
+      func.apply(context, args);
+    }
+	};
 }

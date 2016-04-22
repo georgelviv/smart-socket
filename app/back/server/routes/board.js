@@ -95,8 +95,11 @@ function init() {
       if (body.secret) {
         board.secret = body.secret;
       }
-      if (body.ip && checkIP(body.ip)) {
-        board.ip = body.ip;
+      if (body.broker) {
+        board.broker = body.broker;
+      }
+      if (body.nameValue) {
+        board.nameValue = body.nameValue;
       }
       board.save(onSave);
 
@@ -116,7 +119,8 @@ function init() {
             id: board._id,
             name: board.name,
             secret: board.secret,
-            ip: board.ip
+            broker: board.broker,
+            nameValue: board.nameValue
           }
         });
       }
@@ -170,7 +174,8 @@ function init() {
           id: item._id,
           name: item.name,
           secret: item.secret,
-          ip: item.ip
+          broker: item.broker,
+          nameValue: item.nameValue
         };
       });
       res.status(200).json({
@@ -192,8 +197,9 @@ function init() {
     var boardObj = {
       name: req.body.name,
       secret: req.body.secret,
-      ip: req.body.ip,
-      userId: req.user._id
+      broker: req.body.broker,
+      userId: req.user._id,
+      nameValue: req.body.nameValue
     };
 
     var board = new Board(boardObj);
@@ -214,25 +220,19 @@ function init() {
           id: board._id,
           name: board.name,
           secret: board.secret,
-          ip: board.ip
+          broker: board.broker,
+          nameValue: board.nameValue
         }
       });
     }
   }
 
   function checkBody(body) {
-    if (!body.name || !body.secret || !body.ip) {
-      return false;
-    }
-    if (!checkIP(body.ip)) {
+    if (!body.name || !body.secret || !body.broker || !body.nameValue) {
       return false;
     }
     return true;
   }
 
-  function checkIP(ip) {
-    var ipRegex = /^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)(:\d{1,6})?$/;
-    return ipRegex.test(ip);
-  }
 
 }

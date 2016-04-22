@@ -34,9 +34,9 @@
         </md-button>
       </p>
       <p flex="100">
-        <md-icon aria-label="IP address">network_wifi</md-icon>
+        <md-icon aria-label="Broker address">network_wifi</md-icon>
         <span>
-          {{board.ip}}
+          {{board.broker}}
         </span>
       </p>
       <p flex="100">
