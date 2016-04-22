@@ -137,9 +137,13 @@
 
     function errorGenHandler(action) {
       return function onError(error) {
-        if (error && error.message === 'Not authorized') {
-          $location.path('/login');
-          loggerApi.error('You should be authorized.');
+        if (error && error.message) {
+          if (error.message === 'Not authorized') {
+            $location.path('/login');
+            loggerApi.error('You should be authorized.');
+          } else {
+            loggerApi.error(error.message);
+          }
           return;
         }
         loggerApi.error('Error to ' + action);

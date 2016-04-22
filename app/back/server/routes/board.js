@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const url = require('url');
 const serverModule = require('../index');
 const dbModule = require('../../db');
 const boardModule = require('../../board');
@@ -96,6 +97,13 @@ function init() {
         board.secret = body.secret;
       }
       if (body.broker) {
+        if (!checkUrl(body.broker)) {
+          res.status(200).json({
+            status: false,
+            message: 'Pass correct broker url'
+          });
+          return;
+        }
         board.broker = body.broker;
       }
       if (body.nameValue) {
@@ -193,6 +201,13 @@ function init() {
       });
       return;
     }
+    if (!checkUrl(req.body.broker)) {
+      res.status(200).json({
+        status: false,
+        message: 'Pass correct broker url'
+      });
+      return;
+    }
 
     var boardObj = {
       name: req.body.name,
@@ -229,6 +244,14 @@ function init() {
 
   function checkBody(body) {
     if (!body.name || !body.secret || !body.broker || !body.nameValue) {
+      return false;
+    }
+    return true;
+  }
+
+  function checkUrl(link) {
+    let parseUrl = url.parse(link);
+    if (!parseUrl.protocol) {
       return false;
     }
     return true;

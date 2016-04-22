@@ -51,11 +51,21 @@ function MqttClient(broker, onConnectCb) {
     });
     removeConnectDbncFn();
     setTimeout(function () {
-      timeout(cbList.length - 1);
+      timeout(msgObj.uuid);
     }, mqttModule.reqTimeout);
   }
 
-  function timeout(index) {
+  function timeout(uuid) {
+    var index;
+    for (let i = 0; i < cbList.length; i++) {
+      if (uuid === cbList[i].uuid) {
+        index = i;
+        break;
+      }
+    }
+    if (!index) {
+      return;
+    }
     var cb = cbList[index].cb;
     cbList.splice(index, 1);
     if (cb) {

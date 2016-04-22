@@ -40,7 +40,8 @@
     }
 
     function updateStatus() {
-      if (!vm.gpioArray.length) {
+      if (!vm.gpioArray || !vm.gpioArray.length) {
+        vm.gpioArray = [];
         angular.copy(GPIO_ARRAY, vm.gpioArray);
       }
       vm.gpioArray.forEach(function (item) {

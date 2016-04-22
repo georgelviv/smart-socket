@@ -22,12 +22,12 @@
              minlength="5">
       <div ng-messages="editBoardForm.broker.$error">
         <div ng-message="required">Broker address is required.</div>
-        <div ng-message="minlength">Minimum length is 3 symbols.</div>
+        <div ng-message="minlength">Minimum length is 5 symbols.</div>
       </div>
     </md-input-container>
     <md-input-container class="md-block">
       <label>Board name value</label>
-      <input name="broker" type="text" ng-model="board.edit.nameValue" required
+      <input name="nameValue" type="text" ng-model="board.edit.nameValue" required
              minlength="5">
       <div ng-messages="editBoardForm.nameValue.$error">
         <div ng-message="required">Board name value is required.</div>
@@ -38,7 +38,7 @@
       <label>Secret key</label>
       <input name="secret" type="text" ng-model="board.edit.secret" required
              minlength="4" md-maxlength="30">
-      <div ng-messages="editBoardForm.ip.$error">
+      <div ng-messages="editBoardForm.secret.$error">
         <div ng-message="required">Secret key is required.</div>
         <div ng-message="minlength">Minimum length is 3 symbols.</div>
         <div ng-message="md-maxlength">Maximum length is 30 symbols.</div>
